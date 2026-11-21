@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>みらい議会＠前橋市</title>
+<style>
+:root{
+  --main:#0f5132; --main-deep:#083622; --main-mid:#1a7a4a; --soft:#e8f3ec;
+  --gold:#c9a227; --gold-light:#f3e2a0;
+  --bg:#f5f8f4; --surface:#ffffff; --surface2:#fffaf0;
+  --ink:#1c2a20; --ink2:#54655a; --line:#d7e3d9;
+  --green-bg:#e2f3e6; --green:#1d6b3a;
+  --chip:#dcefe2; --chip-ink:#0a3622;
+  --shadow:0 2px 10px rgba(8,54,34,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121a14; --surface:#1e2a20; --surface2:#2a2118; --ink:#ecf4ee; --ink2:#b9cbbd; --line:#35473a; --chip:#24382a; --chip-ink:#a9d8ba; --soft:#1d2f23; --green-bg:#173524; --green:#8fd6a3; --shadow:0 2px 10px rgba(0,0,0,.35);}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.65;font-size:15px}
+a{color:var(--main-mid)}
+button,[role="button"],input{min-height:2.25rem}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+.hero{background:linear-gradient(135deg,var(--main-deep) 0%,var(--main) 45%,var(--main-mid) 100%);color:#fff;position:relative;overflow:hidden;padding:28px 0 30px}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,235,180,.16)}
+.hero::before{width:150px;height:150px;right:4%;top:-40px}
+.hero::after{width:90px;height:90px;right:16%;bottom:-30px;background:rgba(255,255,255,.12)}
+.hero .sparkles{position:absolute;right:18px;top:14px;color:var(--gold-light);letter-spacing:10px;font-size:14px}
+.hero .pill-unofficial{display:inline-block;background:#fdf6e3;color:#7a5a00;font-weight:700;font-size:12px;padding:5px 12px;border-radius:999px}
+.hero h1{font-size:32px;line-height:1.25;margin:14px 0 8px;font-weight:800;letter-spacing:.02em}
+.hero p.sub{margin:0;font-size:14.5px;opacity:.96;max-width:640px}
+.hero .pill-session{display:inline-block;margin-top:14px;border:1.5px solid var(--gold-light);color:#fff;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;background:rgba(0,0,0,.12)}
+.hero .dots{position:absolute;left:3%;bottom:18px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22)}
+.session-bar{background:var(--surface);border-bottom:3px solid var(--gold);padding:12px 0}
+.session-bar .wrap{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.session-bar strong{color:var(--main);font-size:15px}
+@media (prefers-color-scheme: dark){.session-bar strong{color:#8fd6a3}}
+.session-bar span{color:var(--ink2);font-size:13px}
+.sess-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 2px}
+.sess-tab{border:1.5px solid var(--main);background:var(--surface);color:var(--main);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:700;cursor:pointer;min-height:40px}
+@media (prefers-color-scheme: dark){.sess-tab{color:#8fd6a3}}
+.sess-tab.active{background:var(--main);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0 6px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 10px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:22px;color:var(--main);line-height:1.1}
+@media (prefers-color-scheme: dark){.stat b{color:#8fd6a3}}
+.stat span{font-size:12px;color:var(--ink2)}
+@media(max-width:640px){.stats{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:26px}}
+.toc{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.toc .label{font-size:11px;color:var(--ink2);margin-bottom:4px}
+.toc-row{display:flex;gap:6px;flex-wrap:wrap}
+.toc a{display:inline-flex;align-items:center;min-height:36px;padding:6px 12px;border-radius:999px;background:var(--chip);color:var(--chip-ink);text-decoration:none;font-weight:700;font-size:13px}
+.note{background:#fff7d6;border:1px solid #ecd88a;color:#5c4a00;border-radius:12px;padding:12px 14px;font-size:13px;margin:14px 0 4px}
+@media (prefers-color-scheme: dark){.note{background:#3a3114;color:#f3e2a0;border-color:#6b5c1d}}
+h2.sec{font-size:19px;margin:26px 0 6px;display:flex;align-items:center;gap:10px;color:var(--main-deep)}
+@media (prefers-color-scheme: dark){h2.sec{color:#a9d8ba}}
+h2.sec::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.sec-desc{color:var(--ink2);font-size:13.5px;margin:4px 0 12px}
+.feat-scroll{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.feat-card{flex:0 0 300px;scroll-snap-align:start;background:linear-gradient(160deg,#fffbe9,#fdf0d5);border:1px solid var(--gold);border-radius:14px;padding:16px;cursor:pointer;text-align:left;font:inherit;color:#3a2a10}
+@media (prefers-color-scheme: dark){.feat-card{background:linear-gradient(160deg,#332a12,#2a2110);color:#f7ecd0}}
+.feat-card .tag{display:inline-block;background:var(--main);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-bottom:8px}
+.feat-card h3{margin:0 0 6px;font-size:16px;line-height:1.45}
+.feat-card p{margin:0 0 10px;font-size:13px;color:inherit;opacity:.85}
+.feat-card .meta{font-size:12px;font-weight:700}
+.search{width:100%;padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 6px}
+.chip-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;min-height:36px}
+.chip-btn.active{background:var(--main);color:#fff;border-color:var(--main);font-weight:700}
+.count{font-size:13px;color:var(--ink2);margin:6px 0 10px}
+.bill{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--main);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;box-shadow:var(--shadow)}
+.bill:hover{border-color:var(--main)}
+.bill-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.num{background:var(--chip);color:var(--chip-ink);font-weight:700;font-size:12px;padding:3px 9px;border-radius:6px}
+.cat{border:1px solid var(--line);font-size:12px;padding:3px 9px;border-radius:999px;color:var(--ink2)}
+.result{margin-left:auto;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+.result.ok{background:var(--green-bg);color:var(--green)}
+.result.split{background:#fdeeda;color:#8a5a00}
+@media (prefers-color-scheme: dark){.result.split{background:#3a2f14;color:#f3d98a}}
+.result.ng{background:#f9e0e0;color:#9c1c1c}
+@media (prefers-color-scheme: dark){.result.ng{background:#3d1d1d;color:#f0a8a8}}
+.bill h3{display:inline;font-size:15.5px}
+.bill .official{color:var(--ink2);font-size:13px}
+.empty{display:none;text-align:center;color:var(--ink2);padding:24px;border:1px dashed var(--line);border-radius:12px}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.q-grid{grid-template-columns:1fr}}
+.q-card{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--main);border-radius:12px;padding:14px}
+.q-card .order{display:inline-block;background:var(--main);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:6px}
+.q-card b.name{font-size:15px}
+.q-card .faction{font-size:12px;color:var(--ink2);margin-left:6px}
+.q-card ol{margin:8px 0 0;padding-left:20px;font-size:13.5px}
+.more-btn{width:100%;margin-top:12px;padding:12px;border-radius:12px;border:1.5px solid var(--main);background:var(--surface);color:var(--main);font-weight:700;font-size:14px;cursor:pointer;min-height:44px}
+@media (prefers-color-scheme: dark){.more-btn{color:#a9d8ba}}
+.faction{margin-bottom:16px}
+.faction h3{font-size:15px;color:var(--main);margin:14px 0 8px}
+@media (prefers-color-scheme: dark){.faction h3{color:#a9d8ba}}
+.faction h3 span{color:var(--ink2);font-weight:400;font-size:13px;margin-left:6px}
+.m-grid{display:flex;flex-wrap:wrap;gap:8px}
+.member{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:140px}
+.member b{font-size:14.5px}
+.role{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:5px;vertical-align:middle}
+.role.gold{background:#f7e7a8;color:#6b5200}
+.role.light{background:var(--chip);color:var(--chip-ink)}
+.member .q{font-size:12px;color:var(--ink2);margin-top:3px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.g-grid{grid-template-columns:1fr}}
+.g-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.g-card ruby{font-size:16px;font-weight:700;color:var(--main-deep)}
+@media (prefers-color-scheme: dark){.g-card ruby{color:#a9d8ba}}
+.g-card rt{font-size:10px;color:var(--ink2);font-weight:400}
+.g-card p{margin:5px 0 0;font-size:13.5px}
+footer{margin-top:36px;border-top:1px solid var(--line);background:var(--surface);padding:22px 0 34px;font-size:13px;color:var(--ink2)}
+footer strong{color:var(--ink)}
+footer ul{padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(5,20,12,.55);display:none;z-index:50;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:var(--surface);color:var(--ink);width:100%;max-width:680px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px 18px 28px}
+@media(min-width:640px){.overlay{align-items:center}.modal{border-radius:18px}}
+.modal .close{float:right;border:none;background:var(--chip);width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--ink)}
+.tabs{display:flex;gap:6px;margin:12px 0}
+.tab{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700;min-height:44px;color:var(--ink)}
+.tab.active{background:var(--main);color:#fff;border-color:var(--main)}
+table.info{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+table.info th,table.info td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+table.info th{background:var(--soft);width:90px}
+.vote-box{background:var(--soft);border-radius:10px;padding:12px 14px;font-size:13.5px;margin:10px 0}
+.src-link{display:inline-block;margin-top:6px;font-weight:700}
+.flow{list-style:none;margin:0 0 14px;padding:0}
+.flow li{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.flow li:last-child{border-bottom:none}
+.flow .fd{flex:0 0 86px;font-weight:800;color:var(--main);font-size:13px;padding-top:2px}
+@media (prefers-color-scheme: dark){.flow .fd{color:#8fd6a3}}
+.flow .ft{font-size:14px}
+.flow .ft b{display:block;font-size:14.5px}
+.focus-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.focus-card .kind{display:inline-block;background:var(--main);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.focus-card .kind.committee{background:#7a5a00}
+.focus-card .kind.debate{background:#8a3030}
+.focus-card h3{margin:0 0 10px;font-size:16.5px;line-height:1.5}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.qa{grid-template-columns:1fr}}
+.qa .ask,.qa .ans{border-radius:10px;padding:11px 13px;font-size:13.5px}
+.qa .ask{background:#eef4fb;border:1px solid #c9d9ee}
+.qa .ans{background:var(--green-bg);border:1px solid var(--line)}
+@media (prefers-color-scheme: dark){.qa .ask{background:#1d2a3d;border-color:#33465e}}
+.qa .who{display:block;font-weight:800;font-size:12.5px;margin-bottom:4px}
+.qa p{margin:0}
+.focus-card .fresult{margin-top:10px;font-size:13.5px;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.committee-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.committee-box h3{margin:0 0 8px;font-size:15.5px;color:var(--main-deep)}
+@media (prefers-color-scheme: dark){.committee-box h3{color:#a9d8ba}}
+.committee-box table{width:100%;border-collapse:collapse;font-size:13.5px}
+.committee-box th,.committee-box td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.committee-box th{background:var(--soft);width:118px}
+.committee-box p{font-size:13.5px;margin:6px 0}
+.bill .drill-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:9px}
+.bill .giji-badge{background:#fdf0d5;border:1px solid var(--gold);color:#7a5a00;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+@media (prefers-color-scheme: dark){.bill .giji-badge{background:#3a2f14;color:#f3d98a}}
+.bill .drill-hint{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--main-mid)}
+.modal{max-width:760px}
+.crumb{font-size:12px;color:var(--ink2);margin:2px 44px 6px 0}
+.crumb b{color:var(--main)}
+@media (prefers-color-scheme: dark){.crumb b{color:#8fd6a3}}
+.drill-nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.back-btn{border:1.5px solid var(--main);background:var(--surface);color:var(--main);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;min-height:38px}
+@media (prefers-color-scheme: dark){.back-btn{color:#a9d8ba}}
+.stepper{display:flex;gap:0;margin:14px 0 4px;overflow-x:auto;padding-bottom:6px}
+.step{flex:1 0 118px;position:relative;padding:0 8px 0 0}
+.step::before{content:"";position:absolute;top:13px;left:26px;right:0;height:2px;background:var(--line)}
+.step:last-child::before{display:none}
+.step .dot{position:relative;z-index:1;width:26px;height:26px;border-radius:50%;background:var(--main);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step .sd{font-size:11.5px;color:var(--ink2);margin-top:6px}
+.step .st{font-size:13px;font-weight:800;line-height:1.4}
+.step .sx{font-size:12px;color:var(--ink2);line-height:1.5;margin-top:2px}
+.drill-sec{margin-top:18px}
+.drill-sec>h4{font-size:15px;margin:0 0 8px;color:var(--main-deep);display:flex;align-items:center;gap:8px}
+@media (prefers-color-scheme: dark){.drill-sec>h4{color:#a9d8ba}}
+.drill-sec>h4::after{content:"";flex:1;height:1px;background:var(--line)}
+.mini-flow{list-style:none;margin:0;padding:0}
+.mini-flow li{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.mini-flow li:last-child{border-bottom:none}
+.mini-flow .fd{flex:0 0 74px;font-weight:800;color:var(--main);font-size:12.5px;padding-top:2px}
+@media (prefers-color-scheme: dark){.mini-flow .fd{color:#8fd6a3}}
+.rel-list{display:grid;grid-template-columns:1fr;gap:8px}
+.rel-item{display:flex;gap:8px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:11px 13px;cursor:pointer;font:inherit;color:inherit}
+.rel-item:hover{border-color:var(--main)}
+.rel-item .rt{font-size:14px;font-weight:700;line-height:1.45}
+.rel-item .rs{font-size:12px;color:var(--ink2)}
+.rel-item .go{margin-left:auto;font-weight:800;color:var(--main-mid);white-space:nowrap;font-size:13px}
+.pn-row{display:flex;gap:8px;margin-top:20px}
+.pn-btn{flex:1;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:11px 10px;font-size:13px;font-weight:700;cursor:pointer;min-height:44px}
+.pn-btn:disabled{opacity:.35;cursor:default}
+.focus-jump{margin-top:10px;border:1.5px solid var(--main);background:var(--surface);color:var(--main);border-radius:10px;padding:9px 14px;font-weight:700;font-size:13.5px;cursor:pointer;min-height:40px}
+@media (prefers-color-scheme: dark){.focus-jump{color:#a9d8ba}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sparkles">✦ ✦ ✦</div><div class="dots"></div>
+  <div class="wrap">
+    <span class="pill-unofficial">個人が作った非公式ページです</span>
+    <h1>🌱 みらい議会＠前橋市</h1>
+    <p class="sub">前橋市議会の「議事」から読むページです。議案の要約だけでは見えない――誰が何を問い、市がどう答え、委員会と本会議でどこが争点になったのか――を、会議録・議会月報・議会だよりの記録をもとにたどります。</p>
+    <span class="pill-session">✦ 令和8年の定例会（3月・6月・9月）を収録中</span>
+  </div>
+</header>
+
+<div class="session-bar"><div class="wrap">
+  <strong id="sessTitle"></strong>
+  <span id="sessMeta"></span>
+</div></div>
+
+<div class="wrap">
+  <div class="sess-tabs" id="sessTabs" role="tablist" aria-label="定例会の切り替え"></div>
+  <div class="stats" id="stats"></div>
+</div>
+
+<nav class="toc"><div class="wrap">
+  <div class="label">目次（押すとその場所へ移動します）</div>
+  <div class="toc-row">
+    <a href="#featured">✦ 注目</a><a href="#debate">🗣 議事で読む</a><a href="#bills">📋 議案・意見書</a><a href="#questions">🎤 総括質問</a><a href="#members">👥 議員</a><a href="#glossary">📖 ことば解説</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <div class="note"><strong>このページの読み方（議事ベース）：</strong>このページは、本会議の総括質問の問答、委員会での審査、最終日の討論という<strong>実際の議事の流れ</strong>を中心に組み立てています。「議事で読む」では会期ごとの議事の経過と焦点の質疑・討論を、議案一覧は索引としてその後に置いています。議案一覧の各議案を押すとドリルダウンが開き、提案から表決までの経過、その議案に関わる質疑・討論、関連する議案へと掘り下げて読めます。出典は市の公式資料（議会月報・市議会だより・議案の議決結果・総括質問一覧表・補正予算説明資料・意見書）で、発言の全文は市の会議録で確認できます。前橋市議会では一般質問にあたる場面を「総括質問」と呼びます。上のボタンで、令和8年の3つの定例会を切り替えて見られます。</div>
+
+  <h2 class="sec" id="featured">✦ 注目の議案</h2>
+  <div class="feat-scroll" id="featScroll"></div>
+
+  <h2 class="sec" id="debate">🗣 議事で読む</h2>
+  <p class="sec-desc">定例会は「提案 → 総括質問 → 委員会審査 → 討論・表決」の順に進みます。ここでは会期ごとに、議事がどう流れ、どこで何が問われたかを公式の議事記録からまとめました。議案そのものの内容は、この下の議案一覧が索引になります。</p>
+  <div id="debateBox"></div>
+
+  <h2 class="sec" id="bills">すべての議案・報告・意見書</h2>
+  <p class="sec-desc">議案を押すとドリルダウンが開きます。提案から表決までの経過、その議案に関わる総括質問・委員会審査・討論、関連する議案へと、1件ずつ掘り下げてたどれます。「🗣 議事あり」の印が付いた議案は、「議事で読む」の質疑・討論とひも付いています。</p>
+  <input class="search" id="search" type="search" placeholder="気になる言葉で探す（例：保育料、補正、決算、国スポ、駐車場）" aria-label="議案を検索"/>
+  <div class="chips" id="chips"></div>
+  <div class="count" id="count"></div>
+  <div id="billList"></div>
+  <div class="empty" id="empty">条件に合う議案が見つかりませんでした。言葉を変えてお試しください。</div>
+
+  <h2 class="sec" id="questions">🎤 総括質問</h2>
+  <p class="sec-desc" id="qDesc"></p>
+  <div class="q-grid" id="qGrid"></div>
+  <button class="more-btn" id="qMore"></button>
+  <p class="sec-desc" id="qSrc"></p>
+
+  <h2 class="sec" id="members">👥 議員一覧</h2>
+  <p class="sec-desc">前橋市議会の議員38人です（会派構成は令和8年3月23日現在、任期は令和11年2月22日まで）。🎤は第3回定例会で総括質問をした議員で、数字は取り上げたテーマの数です。議長・近藤登議員は採決に加わりません。</p>
+  <div id="memberList"></div>
+  <p class="sec-desc">出典：前橋市公式サイト「議員名簿／会派別」（令和8年3月23日現在）をもとに作成</p>
+
+  <h2 class="sec" id="glossary">📖 ことば解説</h2>
+  <p class="sec-desc">議会の言葉は少し堅いので、このページに出てくる言葉をやさしく言い換えました。議案を開いたときにも、その議案に関係する言葉の解説が下の方に出ます。</p>
+  <div class="g-grid" id="gGrid"></div>
+</div>
+
+<footer><div class="wrap">
+  <p><strong>これは政党チームみらいが運営しているものではありません。</strong>チームみらいの「みらい議会」（国会版）の考え方を参考に、個人が前橋市議会向けに作っている非公式のページです。群馬県内では館林市版に続く市町村版です。</p>
+  <p>出典：前橋市公式サイト</p>
+  <ul>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/r83kekka.pdf" target="_blank" rel="noopener">議案の議決結果（令和8年第3回定例会）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/r892.pdf" target="_blank" rel="noopener">総括質問一覧表</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/12/R8nendo9gatsuhoseigaiyou.pdf" target="_blank" rel="noopener">令和8年度9月補正予算説明資料（議案第117〜120号）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/7199.pdf" target="_blank" rel="noopener">まえばし市議会だより第178号（2026年11月）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/24r8.pdf" target="_blank" rel="noopener">意見書案第24号（防災庁・防災体制）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/25R8.pdf" target="_blank" rel="noopener">意見書案第25号（被災者生活再建支援制度）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0803.pdf" target="_blank" rel="noopener">議会月報 令和8年3月号（第1回定例会の議事・表決・質問一覧）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/12/reiwa8nenndosityousetumei.pdf" target="_blank" rel="noopener">令和8年度当初予算 市長説明（一般会計1,618億4,168万円）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0806.pdf" target="_blank" rel="noopener">議会月報 令和8年6月号（第2回定例会の議事・表決・質問一覧）</a></li>
+    <li><a href="https://www.city.maebashi.gunma.jp/material/files/group/85/8935.pdf" target="_blank" rel="noopener">まえばし市議会だより第177号（2026年8月・第2回定例会の総括質問の問答）</a></li>
+  </ul>
+  <p>「議事で読む」の読み取り方：第1回・第2回定例会は議会月報（本会議の議事経過・委員会審査報告書・討論一覧表）と市議会だよりの問答をもとにしています。第3回定例会は、市議会だより第178号の定例会概要・総括質問の問答と議決結果をもとにしており、委員会審査の日ごとの細部は同号の概要に基づきます。討論の理由の要旨は、議会だより・月報の記録と当時の報道で確認できた範囲で記しています。発言の全文は、前橋市議会の会議録検索で読むことができます。</p>
+  <p>結果の表記について：可決・認定・同意・承認・否決は本会議の結果です。「賛否が分かれた」議案は、公式資料で反対があったものです（第3回定例会は議決結果の賛否一覧、第1回・第2回定例会は議会月報の表決調べによる）。議長・近藤登議員は議決に加わっていません。一般会計決算の金額（歳入1,599億7,103万円・歳出1,531億8,033万円）は令和7年度決算の市長説明・決算資料によるものです。第2回定例会の農業委員会委員の任命（議案第81〜104号）は24件を1件にまとめて載せています。</p>
+</div></footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal">
+    <button class="close" id="closeBtn" aria-label="閉じる">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+var SRC_RESULT="https://www.city.maebashi.gunma.jp/material/files/group/85/r83kekka.pdf";
+var SRC_HOSEI="https://www.city.maebashi.gunma.jp/material/files/group/12/R8nendo9gatsuhoseigaiyou.pdf";
+var SRC_DAYORI="https://www.city.maebashi.gunma.jp/material/files/group/85/7199.pdf";
+var SRC_OP24="https://www.city.maebashi.gunma.jp/material/files/group/85/24r8.pdf";
+var SRC_OP25="https://www.city.maebashi.gunma.jp/material/files/group/85/25R8.pdf";
+var SRC_GEPPOU3="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0803.pdf";
+var SRC_GEPPOU6="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0806.pdf";
+var SRC_BUDGET="https://www.city.maebashi.gunma.jp/material/files/group/12/reiwa8nenndosityousetumei.pdf";
+var SRC_Q3="https://www.city.maebashi.gunma.jp/material/files/group/85/r892.pdf";
+var P="2026年9月1日", D="2026年9月25日";
+var P1="2026年3月3日", D1A="2026年3月12日", D1="2026年3月26日";
+var P2="2026年6月11日", D2="2026年6月22日", D2B="2026年6月30日";
+
+var BILLS3=[
+{id:"g105",num:"議案第105号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の市の決算を認定（一般会計は歳入約1,599.7億円）",official:"令和7年度前橋市一般会計決算認定について",propose:P,decide:D,easyText:"令和7年度に市が集めたお金と使ったお金の結果報告を、議会が「認定」しました。一般会計は歳入1,599億7,103万円、歳出1,531億8,033万円で、差引67億9,070万円でした。賛否が分かれた議案の一つです。",officialText:"令和7年度前橋市一般会計決算認定について審議し、認定となりました。一般会計は歳入1,599億7,103万円、歳出1,531億8,033万円、歳入歳出差引額67億9,070万円です。",gloss:["決算","認定","一般会計"],src:SRC_RESULT,vote:true},
+{id:"g106",num:"議案第106号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の国民健康保険の決算を認定",official:"令和7年度前橋市国民健康保険特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の国民健康保険特別会計のお金の結果報告を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市国民健康保険特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g107",num:"議案第107号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の後期高齢者医療の決算を認定",official:"令和7年度前橋市後期高齢者医療特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の後期高齢者医療特別会計の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市後期高齢者医療特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g108",num:"議案第108号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の競輪事業の決算を認定",official:"令和7年度前橋市競輪特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の競輪特別会計（前橋競輪）の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市競輪特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g109",num:"議案第109号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の介護保険の決算を認定",official:"令和7年度前橋市介護保険特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の介護保険特別会計の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市介護保険特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g110",num:"議案第110号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",easy:"昨年度の母子父子寡婦福祉資金貸付金の決算を認定",official:"令和7年度前橋市母子父子寡婦福祉資金貸付金特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の母子父子寡婦福祉資金貸付金特別会計の決算を、議会が「認定」しました。全会一致でした。",officialText:"令和7年度前橋市母子父子寡婦福祉資金貸付金特別会計決算認定について審議し、認定（全会一致）となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT},
+{id:"g111",num:"議案第111号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",easy:"昨年度の新エネルギー発電事業の決算を認定",official:"令和7年度前橋市新エネルギー発電事業特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の新エネルギー発電事業特別会計の決算を、議会が「認定」しました。全会一致でした。",officialText:"令和7年度前橋市新エネルギー発電事業特別会計決算認定について審議し、認定（全会一致）となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT},
+{id:"g112",num:"議案第112号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の用地先行取得事業の決算を認定",official:"令和7年度前橋市用地先行取得事業特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の用地先行取得事業特別会計の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市用地先行取得事業特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g113",num:"議案第113号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の産業立地推進事業の決算を認定",official:"令和7年度前橋市産業立地推進事業特別会計決算認定について",propose:P,decide:D,easyText:"令和7年度の産業立地推進事業特別会計の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市産業立地推進事業特別会計決算認定について審議し、認定となりました。",gloss:["決算","認定","特別会計"],src:SRC_RESULT,vote:true},
+{id:"g114",num:"議案第114号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"可決及び認定",resultShort:"可決・認定",split:true,easy:"昨年度の水道事業の剰余金の使い道と決算を決定",official:"令和7年度前橋市水道事業会計剰余金の処分及び決算認定について",propose:P,decide:D,easyText:"令和7年度の水道事業会計について、残ったお金（剰余金）の使い道を決め、あわせて決算を「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市水道事業会計剰余金の処分及び決算認定について審議し、可決及び認定となりました。",gloss:["決算","認定","企業会計"],src:SRC_RESULT,vote:true},
+{id:"g115",num:"議案第115号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"可決及び認定",resultShort:"可決・認定",split:true,easy:"昨年度の下水道事業の剰余金の使い道と決算を決定",official:"令和7年度前橋市下水道事業会計剰余金の処分及び決算認定について",propose:P,decide:D,easyText:"令和7年度の下水道事業会計について、剰余金の使い道を決め、あわせて決算を「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市下水道事業会計剰余金の処分及び決算認定について審議し、可決及び認定となりました。",gloss:["決算","認定","企業会計"],src:SRC_RESULT,vote:true},
+{id:"g116",num:"議案第116号",cat:"決算・認定",catLabel:"🧾 決算・認定",result:"認定",resultShort:"認定",split:true,easy:"昨年度の農業集落排水事業の決算を認定",official:"令和7年度前橋市農業集落排水事業会計決算認定について",propose:P,decide:D,easyText:"令和7年度の農業集落排水事業会計の決算を、議会が「認定」しました。賛否が分かれました。",officialText:"令和7年度前橋市農業集落排水事業会計決算認定について審議し、認定となりました。",gloss:["決算","認定","企業会計"],src:SRC_RESULT,vote:true},
+{id:"g117",num:"議案第117号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"今年度の予算を組み替え（めぶくPay U39、高齢者エアコン助成、7月大雨対応など）",official:"令和8年度前橋市一般会計補正予算",propose:P,decide:D,easyText:"令和8年度の一般会計予算の組み替えです。補正額は7億350万8千円で、補正後の総額は1,625億6,958万4千円となりました。物価高騰対策として、39歳以下向け「めぶくPay U39応援キャンペーン」（支払額の30%ポイント還元、上限15,000ポイント）、65歳以上のみの非課税世帯向けエアコン購入費助成（費用の7/10、上限8.4万円）、こども食堂支援、保育関係施設への1施設10万円の支援などを盛り込みました。あわせて、7月17日の大雨被害への対応（一般会計2億740万円）も含みます。賛否が分かれました。",officialText:"令和8年度前橋市一般会計補正予算です。補正額7億350万8千円、補正後の総額1,625億6,958万4千円。物価高騰対応重点支援地方創生臨時交付金活用事業として、めぶくPay U39応援キャンペーン事業3,300万円、高齢者世帯エアコン購入費等助成事業1,260万円、保育関係施設等物価高騰対策支援事業1,940万円などを計上し、7月17日発生の大雨被害対応も含み、可決となりました。",gloss:["補正予算","一般会計","原案可決"],src:SRC_HOSEI,vote:true},
+{id:"g118",num:"議案第118号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"今年度の介護保険の予算を組み替え",official:"令和8年度前橋市介護保険特別会計補正予算",propose:P,decide:D,easyText:"令和8年度の介護保険特別会計の予算の組み替えです。補正額は4億4,280万4千円で、主に介護給付費負担金等の返還金の追加です。全会一致で可決されました。",officialText:"令和8年度前橋市介護保険特別会計補正予算です。補正額4億4,280万4千円（介護給付費負担金等返還金追加など）で、可決（全会一致）となりました。",gloss:["補正予算","特別会計","原案可決"],src:SRC_HOSEI},
+{id:"g119",num:"議案第119号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"今年度の水道事業の予算を組み替え（債務負担行為の変更）",official:"令和8年度前橋市水道事業会計補正予算",propose:P,decide:D,easyText:"令和8年度の水道事業会計の予算の組み替えです。敷島浄水場配水ポンプ棟建築工事について、将来の支払い約束（債務負担行為）の限度額を5億2,800万円から7億円に変更します。全会一致で可決されました。",officialText:"令和8年度前橋市水道事業会計補正予算です。敷島浄水場配水ポンプ棟建築工事に係る債務負担行為の限度額変更（5億2,800万円→7億円）を含み、可決（全会一致）となりました。",gloss:["補正予算","企業会計","債務負担行為"],src:SRC_HOSEI},
+{id:"g120",num:"議案第120号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"今年度の農業集落排水事業の予算を組み替え（大雨で壊れた圧送管の対応）",official:"令和8年度前橋市農業集落排水事業会計補正予算",propose:P,decide:D,easyText:"令和8年度の農業集落排水事業会計の予算の組み替えです。補正額は2,600万円で、7月の大雨で壊れた圧送管の代わりにバキューム車で汚水を運ぶ費用などです。全会一致で可決されました。",officialText:"令和8年度前橋市農業集落排水事業会計補正予算です。補正額2,600万円（大雨に係る圧送管損壊に伴うバキューム運搬委託業務など）で、可決（全会一致）となりました。",gloss:["補正予算","企業会計","原案可決"],src:SRC_HOSEI},
+{id:"g121",num:"議案第121号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"認可地縁団体の印鑑登録・証明のルールを改正",official:"前橋市認可地縁団体印鑑の登録及び証明に関する条例の改正について",propose:P,decide:D,easyText:"自治会などの「認可地縁団体」の印鑑登録と証明に関する市のルールを改める条例です。全会一致で可決されました。",officialText:"前橋市認可地縁団体印鑑の登録及び証明に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例","原案可決"],src:SRC_RESULT},
+{id:"g122",num:"議案第122号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"2029年の国スポ・全スポぐんまに向けた基金をつくる",official:"前橋市国民スポーツ大会・全国障害者スポーツ大会開催基金条例の制定について",propose:P,decide:D,easyText:"2029年に群馬県で開かれる国民スポーツ大会・全国障害者スポーツ大会（湯けむり国スポ・全スポぐんま2029）の開催準備のため、お金を積み立てる基金をつくる条例です。全会一致で可決されました。",officialText:"前橋市国民スポーツ大会・全国障害者スポーツ大会開催基金条例の制定について審議し、可決（全会一致）となりました。",gloss:["議案","条例","基金","原案可決"],src:SRC_RESULT},
+{id:"g123",num:"議案第123号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"スポーツ施設の設置・管理のルールを改正",official:"前橋市スポーツ施設の設置及び管理に関する条例の改正について",propose:P,decide:D,easyText:"市のスポーツ施設の設置と管理に関するルールを改める条例です。全会一致で可決されました。",officialText:"前橋市スポーツ施設の設置及び管理に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例","原案可決"],src:SRC_RESULT},
+{id:"g124",num:"議案第124号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"第1子の保育料を6割軽減へ（上限は月1万5千円、来年4月から）",official:"前橋市保育所、保育の実施及び保育料等に関する条例の改正について",propose:P,decide:D,easyText:"子育て世帯の負担を軽くするため、第1子の保育料を6割軽減し、軽減額の上限を月額15,000円とする条例改正です。3月議会で「一律半額」案が否決されたことを受けて制度を見直し、改めて提案されたもので、来年4月からの実施に向けて準備が進められます。この会期で最も賛否が分かれた議案で、反対討論も行われました。",officialText:"前橋市保育所、保育の実施及び保育料等に関する条例の改正について審議し、可決となりました。第1子保育料を6割軽減（軽減額の上限月額15,000円）とする内容で、令和9年4月からの実施に向けた準備が進められます。",gloss:["議案","条例","原案可決"],src:SRC_RESULT,vote:true},
+{id:"g125",num:"議案第125号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"保育施設の運営基準のルールを改正",official:"前橋市特定教育・保育施設及び特定地域型保育事業の運営に関する基準を定める条例及び前橋市家庭的保育事業等の設備及び運営に関する基準を定める条例の改正について",propose:P,decide:D,easyText:"認定こども園などの特定教育・保育施設や、家庭的保育事業の運営基準を定めた2つの条例を改めるものです。賛否が分かれましたが可決されました。",officialText:"前橋市特定教育・保育施設及び特定地域型保育事業の運営に関する基準を定める条例及び前橋市家庭的保育事業等の設備及び運営に関する基準を定める条例の改正について審議し、可決となりました。",gloss:["議案","条例","原案可決"],src:SRC_RESULT,vote:true},
+{id:"g126",num:"議案第126号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"福祉医療費の支給のルールを改正",official:"前橋市福祉医療費の支給に関する条例の改正について",propose:P,decide:D,easyText:"福祉医療費の支給に関する市のルールを改める条例です。全会一致で可決されました。",officialText:"前橋市福祉医療費の支給に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例","原案可決"],src:SRC_RESULT},
+{id:"g127",num:"議案第127号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"市営駐車場のルールを改正（駅南口駐車場は入場後20分まで無料に）",official:"前橋市営駐車場条例の改正について",propose:P,decide:D,easyText:"市営駐車場のルールを改める条例です。前橋大島駅南口駐車場と駒形駅南口第一駐車場を、入場後20分まで無料とする内容が含まれます。賛否が分かれましたが可決されました。",officialText:"前橋市営駐車場条例の改正について審議し、可決となりました。前橋大島駅南口駐車場及び駒形駅南口第一駐車場について、入場後20分まで無料とする改正を含みます。",gloss:["議案","条例","原案可決"],src:SRC_RESULT,vote:true},
+{id:"g128",num:"議案第128号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"自転車などの放置を防ぐルールを改正",official:"前橋市自転車等の放置の防止に関する条例の改正について",propose:P,decide:D,easyText:"駅前などでの自転車等の放置を防ぐための市のルールを改める条例です。全会一致で可決されました。",officialText:"前橋市自転車等の放置の防止に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例","原案可決"],src:SRC_RESULT},
+{id:"g129",num:"議案第129号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"グリーンドーム前橋の可動席を直す工事の契約",official:"工事請負契約の締結について（グリーンドーム前橋可動席改修工事）",propose:P,decide:D,easyText:"グリーンドーム前橋の可動席を改修する工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（グリーンドーム前橋可動席改修工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約","原案可決"],src:SRC_RESULT},
+{id:"g130",num:"議案第130号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"ドームパーキングⅡを解体する工事の契約",official:"工事請負契約の締結について（ドームパーキングⅡ解体工事）",propose:P,decide:D,easyText:"ドームパーキングⅡを解体する工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（ドームパーキングⅡ解体工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約","原案可決"],src:SRC_RESULT},
+{id:"g131",num:"議案第131号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"南部大橋を地震に強くする工事の契約",official:"工事請負契約の締結について（南部大橋耐震補強工事）",propose:P,decide:D,easyText:"南部大橋の耐震補強工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（南部大橋耐震補強工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約","原案可決"],src:SRC_RESULT},
+{id:"g132",num:"議案第132号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"道路を改良する工事の契約",official:"工事請負契約の締結について（道路改良工事）",propose:P,decide:D,easyText:"道路改良工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（道路改良工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約","原案可決"],src:SRC_RESULT},
+{id:"g133",num:"議案第133号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"前橋工科大学2号館・図書館の建て替え工事の契約内容を変更",official:"工事請負契約締結の議決事項の変更について（前橋工科大学２号館・図書館改築建築工事）",propose:P,decide:D,easyText:"前橋工科大学の2号館と図書館を建て替える建築工事について、以前に議決した契約の内容を変更する議案です。全会一致で可決されました。",officialText:"工事請負契約締結の議決事項の変更について（前橋工科大学２号館・図書館改築建築工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約","原案可決"],src:SRC_RESULT},
+{id:"g134",num:"議案第134号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"水槽付き消防ポンプ自動車を購入",official:"物品の購入について（水槽付消防ポンプ自動車）",propose:P,decide:D,easyText:"水槽付きの消防ポンプ自動車を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（水槽付消防ポンプ自動車）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_RESULT},
+{id:"g135",num:"議案第135号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"災害対応用の特殊な消防ポンプ自動車を購入",official:"物品の購入について（災害対応特殊水槽付消防ポンプ自動車）",propose:P,decide:D,easyText:"災害対応用の特殊な水槽付き消防ポンプ自動車を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（災害対応特殊水槽付消防ポンプ自動車）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_RESULT},
+{id:"g136",num:"議案第136号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"学校給食のトレイ洗浄機を購入",official:"物品の購入について（トレイ洗浄機）",propose:P,decide:D,easyText:"北部共同調理場で使う給食トレイの洗浄機を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（トレイ洗浄機）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_RESULT},
+{id:"g137",num:"議案第137号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"書架（本棚）を購入",official:"物品の購入について（書架）",propose:P,decide:D,easyText:"書架を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（書架）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_RESULT},
+{id:"g138",num:"議案第138号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"伐採作業中の事故について、損害賠償の額を決定",official:"伐採作業中の事故に係る損害賠償の額を決定することについて",propose:P,decide:D,easyText:"伐採作業中に起きた事故について、市が支払う損害賠償の額を決める議案です。全会一致で可決されました。",officialText:"伐採作業中の事故に係る損害賠償の額を決定することについて審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_RESULT},
+{id:"g139",num:"議案第139号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"公平委員会の委員に千原好子さんを選任",official:"公平委員会の委員の選任について〈千原好子氏〉",propose:P,decide:D,easyText:"市の公平委員会の委員に千原好子さんを選ぶことについて、議会が同意しました。全会一致でした。",officialText:"公平委員会の委員として千原好子氏を選任することについて、議会の同意を求める議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_RESULT},
+{id:"g140",num:"議案第140号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"人権擁護委員の候補者に吉田幸男さんを推薦",official:"人権擁護委員の候補者の推薦について〈吉田幸男氏〉",propose:P,decide:D,easyText:"人権を守る活動をする「人権擁護委員」の候補者として吉田幸男さんを推薦することについて、議会が意見を述べ、同意となりました。全会一致でした。",officialText:"人権擁護委員の候補者として吉田幸男氏を推薦することについて意見を求める議案です。審議の結果、同意（全会一致）となりました。",gloss:["同意","人権擁護委員"],src:SRC_RESULT},
+{id:"g141",num:"議案第141号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"人権擁護委員の候補者に宮﨑徹さんを推薦",official:"人権擁護委員の候補者の推薦について〈宮﨑徹氏〉",propose:P,decide:D,easyText:"人権擁護委員の候補者として宮﨑徹さんを推薦することについて、同意となりました。全会一致でした。",officialText:"人権擁護委員の候補者として宮﨑徹氏を推薦することについて意見を求める議案です。審議の結果、同意（全会一致）となりました。",gloss:["同意","人権擁護委員"],src:SRC_RESULT},
+{id:"g142",num:"議案第142号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"人権擁護委員の候補者に岩崎晴美さんを推薦",official:"人権擁護委員の候補者の推薦について〈岩崎晴美氏〉",propose:P,decide:D,easyText:"人権擁護委員の候補者として岩崎晴美さんを推薦することについて、同意となりました。全会一致でした。",officialText:"人権擁護委員の候補者として岩崎晴美氏を推薦することについて意見を求める議案です。審議の結果、同意（全会一致）となりました。",gloss:["同意","人権擁護委員"],src:SRC_RESULT},
+{id:"g143",num:"議案第143号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"人権擁護委員の候補者に山本武文さんを推薦",official:"人権擁護委員の候補者の推薦について〈山本武文氏〉",propose:P,decide:D,easyText:"人権擁護委員の候補者として山本武文さんを推薦することについて、同意となりました。全会一致でした。",officialText:"人権擁護委員の候補者として山本武文氏を推薦することについて意見を求める議案です。審議の結果、同意（全会一致）となりました。",gloss:["同意","人権擁護委員"],src:SRC_RESULT},
+{id:"h5",num:"報告第5号",cat:"報告",catLabel:"📄 報告",result:"承認",resultShort:"承認",split:true,easy:"学校給食費の支払いを求める訴えを市長が先に決めたことを承認",official:"訴えの提起（学校給食費の支払請求）の専決処分について",propose:P,decide:D,easyText:"学校給食費の支払いを求めて訴えを起こすことを、市長が議会の前に先に決めた（専決処分）ことについて、議会が承認しました。賛否が分かれました。",officialText:"訴えの提起（学校給食費の支払請求）に係る専決処分について、議会の承認を求める報告です。審議の結果、承認となりました。",gloss:["報告","専決処分","承認"],src:SRC_RESULT,vote:true},
+{id:"op24",num:"意見書案第24号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",easy:"「防災庁」の発足を見据え、防災体制の抜本的強化を国へ求める",official:"「防災庁」発足を見据えた地方自治体との連携強化及び防災体制の抜本的強化を求める意見書",propose:"2026年9月25日",decide:"2026年9月25日",easyText:"2026年7月に防災庁設置法が成立し、「防災庁」の発足が近づいています。令和8年熊本地震の教訓を踏まえ、猛暑期の避難生活でのトイレ・衛生対策、医療・福祉チームの早期派遣、被災自治体への人材派遣、二次災害防止の監視体制などを国に求める意見書です。中里武議員が提出し、可決されました。",officialText:"「防災庁」発足を見据えた地方自治体との連携強化及び防災体制の抜本的強化を求める意見書（提出者：中里武議員ほか）について審議し、2026年9月25日に可決されました。地方自治法第99条の規定により、国へ提出されます。",gloss:["意見書","原案可決"],src:SRC_OP24},
+{id:"op25",num:"意見書案第25号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",easy:"被災者生活再建支援制度の拡充を国へ求める",official:"被災者生活再建支援制度の拡充を求める意見書",propose:"2026年9月25日",decide:"2026年9月25日",easyText:"自然災害の被災者に最大300万円を支給する「被災者生活再建支援金」は、金額が約20年間据え置かれています。物価上昇を踏まえ、支援金の倍増や対象の見直しなどを盛り込んだ改正法案の早期成立を国に求める意見書です。角田修一議員が提出し、可決されました。",officialText:"被災者生活再建支援制度の拡充を求める意見書（提出者：角田修一議員ほか）について審議し、2026年9月25日に可決されました。被災者生活再建支援法の一部を改正する法律案の早期成立と制度拡充を国へ求めるものです。",gloss:["意見書","原案可決"],src:SRC_OP25}
+];
+
+var FEATURED3=[
+{bill:"g124",tag:"✦ 最も賛否が分かれた",title:"第1子保育料を6割軽減へ、上限は月1万5千円",desc:"3月議会で否決された「一律半額」案を見直して再提案。来年4月からの実施に向け可決されました。"},
+{bill:"g117",tag:"✦ 暮らしに直結",title:"補正予算で、めぶくPay U39やエアコン助成",desc:"物価高騰対策と7月17日の大雨被害への対応を盛り込んだ、一般会計7億350万円の組み替えです。"},
+{bill:"g122",tag:"✦ 2029年へ準備",title:"国スポ・全スポぐんま2029の開催基金を創設",desc:"国民スポーツ大会・全国障害者スポーツ大会の開催準備のための積立基金をつくる条例が可決されました。"}
+];
+
+var QUESTIONS3=[
+{name:"佐藤祥平",faction:"前橋令明",topics:["政策レビューについて","災害対策について","保育料について","地域の諸課題について"]},
+{name:"藤江彰",faction:"前橋高志会",topics:["第1子保育料軽減制度の見直しについて","第八次前橋市総合計画の策定に向けた取組について","DX人材育成について","まえばしこども・若者アイデアまちづくりプロジェクトについて","公共交通政策について","クビアカツヤカミキリ被害への対応について"]},
+{name:"水野芳宣",faction:"前橋令明",topics:["デジタル戦略について","物価高騰対策について","防災について","子育て支援の充実について","教育情報ネットワークについて","地域の諸課題について"]},
+{name:"石塚武",faction:"公明党",topics:["浸水対策について","高齢者用肺炎球菌感染症の定期予防接種について","魅力ある都市景観について","前橋市DX推進計画について"]},
+{name:"小林久子",faction:"日本共産党",topics:["高齢者世帯エアコン購入費等助成事業について","災害対策の強化について"]},
+{name:"富田公隆",faction:"前橋高志会",topics:["次世代にも暮らしやすいまちづくりについて","清掃工場の広域化について","産業用地の整備について","斎場空調及び照明設備の更新について","都市計画道路の整備について"]},
+{name:"角田修一",faction:"まえばし市民クラブ",topics:["粕川地区公共新複合施設について","先進地におけるラーケーションについて","令和7年度各会計決算について"]},
+{name:"間仁田諭",faction:"前橋豊輪",topics:["子育て施策について","災害に対する考え方について","消防団について"]},
+{name:"木部秀人",faction:"前橋令明",topics:["コンプライアンス体制について","危機管理体制について","盛土、擁壁状況について","熱中症対策について","AI、ドローンの活用状況について"]},
+{name:"小川真太郎",faction:"前橋高志会",topics:["老人福祉センターについて","まえばしスマイルプランについて","市民の健康、生きがいとスポーツイベントについて","教員の育成について","前橋市の特別支援教育の現状について","教員の持ち授業時数・管理職選考について"]},
+{name:"林幸一",faction:"前橋令明",topics:["政策レビューに伴う財政状況について","工業団地の造成について","まちなかの活性化について","人口減と少子化について","結婚支援について","乾田直播について","地域の諸課題について"]},
+{name:"高橋照代",faction:"公明党",topics:["健康増進の取組について","粕川地区公共施設整備について","土地利用制度の見直しについて","清掃施設整備について"]},
+{name:"吉原大輔",faction:"日本共産党",topics:["補正予算と物価高騰対策について","豪雨時の防災及び被害対策について"]},
+{name:"林倫史",faction:"前橋高志会",topics:["群馬総社駅整備事業について","特別支援学校運営事業について","新前橋駅前再開発について","道路環境の整備について","ファシリティーマネジメントについて","前橋市イノベーション創出支援事業について","蚕業振興推進事業について","放置自転車対策について"]},
+{name:"市村均光",faction:"前橋令明",topics:["環境について（ごみ処理の広域化・不法投棄・ゼロカーボン）","孤独、孤立対策について","空き地対策について","ナイトタイムエコノミーについて"]},
+{name:"須賀博史",faction:"前橋高志会",topics:["会計年度任用職員について","前橋の農業について","学校給食について","学びの多様化学校について","市街地のにぎわいについて","市ホームページのAIの活用について"]},
+{name:"三森和也",faction:"まえばし市民クラブ",topics:["政策レビューについて","本市職員の働き方、休み方改革について","県知事要望について（利根川新橋）","誰も取り残さない子供、子育て施策充実について","農福連携について"]},
+{name:"山田秀明",faction:"前橋豊輪",topics:["大雨被害による桂川橋梁崩落への対応について","市有地の現状と課題について","農業施策について"]},
+{name:"吉田直弘",faction:"日本共産党",topics:["新前橋駅周辺のまちづくりについて","災害時の避難所対策と課題について"]},
+{name:"入澤繭子",faction:"なないろ",topics:["学校統廃合について","学校教育について（外国語教育・国際理解教育）","観光政策について"]},
+{name:"宮崎裕紀子",faction:"無所属の会",topics:["国スポについて","子育て施策について（学校給食・こどもフードパントリー）","学校教育について（部活動地域展開）","市内施設について（グリーンドーム前橋）"]},
+{name:"岸川知己",faction:"暁鐘",topics:["第1子保育料軽減制度の政策決定過程について","拉致問題の啓発と次世代への継承について"]},
+{name:"阿久澤萌",faction:"無所属クラブ",topics:["東部地域の諸課題について","公民館について（スマートロック導入など）","空き家対策について"]},
+{name:"中林章",faction:"七星",topics:["令和7年度決算について（防犯灯・学校施設・保育所整備など）"]},
+{name:"近藤好枝",faction:"日本共産党",topics:["中心市街地再開発の見直しと新たなまちづくりにおける市長の政治姿勢について","小中学校の統廃合問題について"]},
+{name:"大澤智之",faction:"まえばし市民クラブ",topics:["防災について","環境について（LED照明）","前橋の農政について","人口減少について"]}
+];
+var BILLS1=[
+{id:"a15",num:"議案第15号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の市の基本予算を決定（一般会計1,618億4,168万円）",official:"令和8年度前橋市一般会計予算",propose:P1,decide:D1,easyText:"令和8年度の一般会計当初予算です。総額は1,618億4,168万円で、前年度より2.5%増えました。市税収入は約574億7千万円を見込みます。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市一般会計予算です。歳入歳出予算は1,618億4,168万円（対前年度2.5%増）。審議の結果、賛成多数で原案のとおり可決されました。",gloss:["予算","一般会計","原案可決"],src:SRC_BUDGET,srcLabel:"出典：令和8年度当初予算 市長説明（前橋市公式PDF）→",vote:true},
+{id:"a16",num:"議案第16号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の国民健康保険の予算を決定",official:"令和8年度前橋市国民健康保険特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の国民健康保険特別会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市国民健康保険特別会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a17",num:"議案第17号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の後期高齢者医療の予算を決定",official:"令和8年度前橋市後期高齢者医療特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の後期高齢者医療特別会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市後期高齢者医療特別会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a18",num:"議案第18号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の競輪事業の予算を決定",official:"令和8年度前橋市競輪特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の競輪特別会計（前橋競輪）の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市競輪特別会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a19",num:"議案第19号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の介護保険の予算を決定",official:"令和8年度前橋市介護保険特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の介護保険特別会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市介護保険特別会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a20",num:"議案第20号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和8年度の母子父子寡婦福祉資金貸付金の予算を決定",official:"令和8年度前橋市母子父子寡婦福祉資金貸付金特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の母子父子寡婦福祉資金貸付金特別会計の当初予算です。全会一致で可決されました。",officialText:"令和8年度前橋市母子父子寡婦福祉資金貸付金特別会計予算について審議し、可決（全会一致）となりました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a21",num:"議案第21号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和8年度の新エネルギー発電事業の予算を決定",official:"令和8年度前橋市新エネルギー発電事業特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の新エネルギー発電事業特別会計の当初予算です。全会一致で可決されました。",officialText:"令和8年度前橋市新エネルギー発電事業特別会計予算について審議し、可決（全会一致）となりました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a22",num:"議案第22号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和8年度の用地先行取得事業の予算を決定",official:"令和8年度前橋市用地先行取得事業特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の用地先行取得事業特別会計の当初予算です。全会一致で可決されました。",officialText:"令和8年度前橋市用地先行取得事業特別会計予算について審議し、可決（全会一致）となりました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a23",num:"議案第23号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の産業立地推進事業の予算を決定",official:"令和8年度前橋市産業立地推進事業特別会計予算",propose:P1,decide:D1,easyText:"令和8年度の産業立地推進事業特別会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市産業立地推進事業特別会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a24",num:"議案第24号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の水道事業の予算を決定",official:"令和8年度前橋市水道事業会計予算",propose:P1,decide:D1,easyText:"令和8年度の水道事業会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市水道事業会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","企業会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a25",num:"議案第25号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の下水道事業の予算を決定",official:"令和8年度前橋市下水道事業会計予算",propose:P1,decide:D1,easyText:"令和8年度の下水道事業会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市下水道事業会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","企業会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a26",num:"議案第26号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和8年度の農業集落排水事業の予算を決定",official:"令和8年度前橋市農業集落排水事業会計予算",propose:P1,decide:D1,easyText:"令和8年度の農業集落排水事業会計の当初予算です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"令和8年度前橋市農業集落排水事業会計予算について審議し、賛成多数で原案のとおり可決されました。",gloss:["予算","企業会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a27",num:"議案第27号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和7年度の一般会計予算を組み替え（年度末の補正）",official:"令和7年度前橋市一般会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の一般会計補正予算です。委員会への付託を省略して3月12日に採決され、賛否が分かれましたが賛成多数で可決されました。",officialText:"令和7年度前橋市一般会計補正予算について審議し、賛成多数で原案のとおり可決されました（令和8年3月12日議決）。",gloss:["補正予算","一般会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a28",num:"議案第28号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の国民健康保険の予算を組み替え",official:"令和7年度前橋市国民健康保険特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の国民健康保険特別会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市国民健康保険特別会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a29",num:"議案第29号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の後期高齢者医療の予算を組み替え",official:"令和7年度前橋市後期高齢者医療特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の後期高齢者医療特別会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市後期高齢者医療特別会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a30",num:"議案第30号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和7年度の競輪事業の予算を組み替え",official:"令和7年度前橋市競輪特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の競輪特別会計補正予算です。3月12日に採決され、賛否が分かれましたが賛成多数で可決されました。",officialText:"令和7年度前橋市競輪特別会計補正予算について審議し、賛成多数で原案のとおり可決されました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a31",num:"議案第31号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の介護保険の予算を組み替え",official:"令和7年度前橋市介護保険特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の介護保険特別会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市介護保険特別会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a32",num:"議案第32号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の母子父子寡婦福祉資金貸付金の予算を組み替え",official:"令和7年度前橋市母子父子寡婦福祉資金貸付金特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の母子父子寡婦福祉資金貸付金特別会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市母子父子寡婦福祉資金貸付金特別会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a33",num:"議案第33号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の新エネルギー発電事業の予算を組み替え",official:"令和7年度前橋市新エネルギー発電事業特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の新エネルギー発電事業特別会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市新エネルギー発電事業特別会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3},
+{id:"a34",num:"議案第34号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",split:true,easy:"令和7年度の産業立地推進事業の予算を組み替え",official:"令和7年度前橋市産業立地推進事業特別会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の産業立地推進事業特別会計補正予算です。3月12日に採決され、賛否が分かれましたが賛成多数で可決されました。",officialText:"令和7年度前橋市産業立地推進事業特別会計補正予算について審議し、賛成多数で原案のとおり可決されました（令和8年3月12日議決）。",gloss:["補正予算","特別会計"],src:SRC_GEPPOU3,vote:true},
+{id:"a35",num:"議案第35号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の水道事業の予算を組み替え",official:"令和7年度前橋市水道事業会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の水道事業会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市水道事業会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","企業会計"],src:SRC_GEPPOU3},
+{id:"a36",num:"議案第36号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の下水道事業の予算を組み替え",official:"令和7年度前橋市下水道事業会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の下水道事業会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市下水道事業会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","企業会計"],src:SRC_GEPPOU3},
+{id:"a37",num:"議案第37号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和7年度の農業集落排水事業の予算を組み替え",official:"令和7年度前橋市農業集落排水事業会計補正予算",propose:P1,decide:D1A,easyText:"令和7年度の農業集落排水事業会計補正予算です。3月12日に全会一致で可決されました。",officialText:"令和7年度前橋市農業集落排水事業会計補正予算について審議し、可決（全会一致）となりました（令和8年3月12日議決）。",gloss:["補正予算","企業会計"],src:SRC_GEPPOU3},
+{id:"a38",num:"議案第38号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"行政手続のルールを改正",official:"前橋市行政手続条例の改正について",propose:P1,decide:D1,easyText:"市の行政手続に関する条例の改正です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"前橋市行政手続条例の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU3,vote:true},
+{id:"a39",num:"議案第39号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"介護保険のルールを改正",official:"前橋市介護保険条例の改正について",propose:P1,decide:D1,easyText:"市の介護保険条例の改正です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"前橋市介護保険条例の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU3,vote:true},
+{id:"a40",num:"議案第40号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"いじめ問題を調べ直す委員会の条例を新しく作る",official:"前橋市いじめ問題再調査委員会条例の制定について",propose:P1,decide:D1,easyText:"いじめ問題について、必要に応じて調査をやり直すための委員会を設ける新しい条例です。全会一致で可決されました。総括質問でも取り上げられました。",officialText:"前橋市いじめ問題再調査委員会条例の制定について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a41",num:"議案第41号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"乳児等通園支援事業（こども誰でも通園制度）の運営基準の条例を新しく作る",official:"前橋市特定乳児等通園支援事業の運営に関する基準を定める条例の制定について",propose:P1,decide:D1,easyText:"「こども誰でも通園制度」に対応する特定乳児等通園支援事業の運営基準を定める新しい条例です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"前橋市特定乳児等通園支援事業の運営に関する基準を定める条例の制定について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU3,vote:true},
+{id:"a42",num:"議案第42号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"乳児等通園支援事業の設備・運営基準のルールを改正",official:"前橋市乳児等通園支援事業の設備及び運営に関する基準を定める条例の改正について",propose:P1,decide:D1,easyText:"乳児等通園支援事業の設備と運営の基準を定めた条例の改正です。全会一致で可決されました。",officialText:"前橋市乳児等通園支援事業の設備及び運営に関する基準を定める条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a43",num:"議案第43号",cat:"条例",catLabel:"📜 条例",result:"否決",resultShort:"否決",split:true,easy:"第1子（0〜2歳）の保育料を半額にする条例改正 → 否決",official:"前橋市保育所、保育の実施及び保育料等に関する条例の改正について",propose:P1,decide:D1,easyText:"小川市長の公約「第1子の保育料半額」を実現するための条例改正案です。2026年9月1日からの実施を目指して提案されましたが、常任委員会に続いて本会議でも賛成少数となり、否決されました。賛成は日本共産党・まえばし市民クラブ・前橋豊輪・なないろの11人、反対は前橋高志会・前橋令明・公明党など7会派26人でした。市長は「期待していた市民に申し訳ない」と述べ、制度を見直して再提案する考えを示しました。その後、9月定例会で「6割軽減・上限月1万5千円」の見直し案が可決されています（第3回定例会の議案第124号）。",officialText:"前橋市保育所、保育の実施及び保育料等に関する条例の改正について審議しました。第1子（0〜2歳）の保育料を半額とする内容でしたが、表決の結果、賛成少数で否決されました。反対討論は佐藤祥平議員、賛成討論は吉田直弘議員が行いました。",gloss:["議案","条例"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成11人・反対26人で、賛成少数により否決されました。"},
+{id:"a44",num:"議案第44号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"国民健康保険税のルールを改正",official:"前橋市国民健康保険税条例の改正について",propose:P1,decide:D1,easyText:"国民健康保険税に関する条例の改正です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"前橋市国民健康保険税条例の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU3,vote:true},
+{id:"a45",num:"議案第45号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"歴史的建築物を守り生かすための条例を新しく作る",official:"前橋市歴史的建築物の保存及び活用に関する条例の制定について",propose:P1,decide:D1,easyText:"まちの歴史ある建物を保存し、活用していくための新しい条例です。全会一致で可決されました。総括質問でも制定の効果などが取り上げられました。",officialText:"前橋市歴史的建築物の保存及び活用に関する条例の制定について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a46",num:"議案第46号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"力丸工業団地西地区の建物の制限ルールを新しく作る",official:"前橋市力丸工業団地西地区地区計画の区域内における建築物の制限に関する条例の制定について",propose:P1,decide:D1,easyText:"力丸工業団地西地区の地区計画の区域内で、建てられる建築物の制限を定める新しい条例です。全会一致で可決されました。",officialText:"前橋市力丸工業団地西地区地区計画の区域内における建築物の制限に関する条例の制定について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a47",num:"議案第47号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"建物に駐車施設を付けるルールを改正",official:"前橋市建築物における駐車施設の附置等に関する条例の改正について",propose:P1,decide:D1,easyText:"建築物に駐車施設を設けることなどに関する条例の改正です。全会一致で可決されました。",officialText:"前橋市建築物における駐車施設の附置等に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a48",num:"議案第48号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"市営住宅の管理ルールを改正",official:"前橋市営住宅管理条例の改正について",propose:P1,decide:D1,easyText:"市営住宅の管理に関する条例の改正です。全会一致で可決されました。",officialText:"前橋市営住宅管理条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a49",num:"議案第49号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"火災予防のルールを改正",official:"前橋市火災予防条例の改正について",propose:P1,decide:D1,easyText:"火災予防に関する市の条例の改正です。全会一致で可決されました。",officialText:"前橋市火災予防条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"a50",num:"議案第50号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"包括外部監査の契約を結ぶ",official:"包括外部監査契約の締結について",propose:P1,decide:D1,easyText:"市の仕事やお金の使い方を外部の専門家に点検してもらう「包括外部監査」の契約を結ぶ議案です。全会一致で可決されました。",officialText:"包括外部監査契約の締結について審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a51",num:"議案第51号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"市民文化会館大胡分館の舞台照明を直す工事の契約",official:"工事請負契約の締結について（市民文化会館大胡分館舞台照明設備改修工事）",propose:P1,decide:D1,easyText:"市民文化会館大胡分館の舞台照明設備を改修する工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（市民文化会館大胡分館舞台照明設備改修工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約"],src:SRC_GEPPOU3},
+{id:"a52",num:"議案第52号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"ビーチコート用の砂を購入",official:"物品の購入について（ビーチコート用の砂）",propose:P1,decide:D1,easyText:"ビーチコートで使う砂を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（ビーチコート用の砂）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a53",num:"議案第53号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"学習者用のChromebook（パソコン）を購入",official:"物品の購入について（学習者用Ｃｈｒｏｍｅｂｏｏｋ）",propose:P1,decide:D1,easyText:"学校で児童生徒が使う学習者用Chromebookを買い入れる議案です。第2期GIGAスクール構想に向けた整備で、全会一致で可決されました。",officialText:"物品の購入について（学習者用Ｃｈｒｏｍｅｂｏｏｋ）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a54",num:"議案第54号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",easy:"前橋工科大学の第3期中期目標を変更",official:"公立大学法人前橋工科大学の第３期中期目標の変更について",propose:P1,decide:D1,easyText:"公立大学法人前橋工科大学の第3期中期目標を変更する議案です。全会一致で可決されました。",officialText:"公立大学法人前橋工科大学の第３期中期目標の変更について審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a55",num:"議案第55号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",split:true,easy:"市営住宅・広瀬団地を建て替える事業の契約",official:"前橋市営住宅広瀬団地建替事業契約の締結について",propose:P1,decide:D1,easyText:"市営住宅の広瀬団地を建て替える事業（PFI方式）の契約を結ぶ議案です。賛否が分かれましたが、賛成多数で可決されました。総括質問でも計画や財源が取り上げられました。",officialText:"前橋市営住宅広瀬団地建替事業契約の締結について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3,vote:true},
+{id:"a56",num:"議案第56号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",easy:"市道として認定する",official:"市道の認定について",propose:P1,decide:D1,easyText:"新しい道路を市道として認定する議案です。全会一致で可決されました。",officialText:"市道の認定について審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a57",num:"議案第57号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",easy:"市道を廃止する",official:"市道の廃止について",propose:P1,decide:D1,easyText:"市道を廃止する議案です。全会一致で可決されました。",officialText:"市道の廃止について審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU3},
+{id:"a58",num:"議案第58号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"監査委員に高橋照代議員を選任",official:"監査委員の選任について〈高橋照代議員〉",propose:D1,decide:D1,easyText:"市の監査委員に高橋照代議員を選ぶことについて、議会が同意しました。全会一致でした。閉会日に追加提案された人事議案です。",officialText:"監査委員として高橋照代議員を選任することについて、議会の同意を求める追加議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU3},
+{id:"a59",num:"議案第59号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"監査委員に小曽根英明議員を選任",official:"監査委員の選任について〈小曽根英明議員〉",propose:D1,decide:D1,easyText:"市の監査委員に小曽根英明議員を選ぶことについて、議会が同意しました。全会一致でした。",officialText:"監査委員として小曽根英明議員を選任することについて、議会の同意を求める追加議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU3},
+{id:"a60",num:"議案第60号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"固定資産評価審査委員会の委員に津久井伸昭さんを選任",official:"固定資産評価審査委員会の委員の選任について〈津久井伸昭氏〉",propose:D1,decide:D1,easyText:"固定資産評価審査委員会の委員に津久井伸昭さんを選ぶことについて、議会が同意しました。全会一致でした。",officialText:"固定資産評価審査委員会の委員として津久井伸昭氏を選任することについて、議会の同意を求める追加議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU3},
+{id:"a61",num:"議案第61号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"教育委員会の教育長に山中茂樹さんを任命",official:"教育委員会の教育長の任命について〈山中茂樹氏〉",propose:D1,decide:D1,easyText:"教育委員会の教育長に山中茂樹さんを任命することについて、議会が同意しました。全会一致でした。",officialText:"教育委員会の教育長として山中茂樹氏を任命することについて、議会の同意を求める追加議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU3},
+{id:"a62",num:"議案第62号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"教育委員会の委員に北爪麻衣子さんを任命",official:"教育委員会の委員の任命について〈北爪麻衣子氏〉",propose:D1,decide:D1,easyText:"教育委員会の委員に北爪麻衣子さんを任命することについて、議会が同意しました。全会一致でした。",officialText:"教育委員会の委員として北爪麻衣子氏を任命することについて、議会の同意を求める追加議案です。審議の結果、同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU3},
+{id:"av1",num:"議会議案第1号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"議会の委員会条例を改正（市の部名変更に合わせる）",official:"前橋市議会委員会条例の改正について",propose:D1,decide:D1,easyText:"議員が提出した議案です。市の組織変更（文化スポーツ観光部→文化スポーツ部）に合わせて、議会の委員会条例の表記を改めるものです。全会一致で可決されました。",officialText:"前橋市議会委員会条例の改正について（議会議案）審議し、可決（全会一致）となりました。令和8年4月1日施行です。",gloss:["議案","条例"],src:SRC_GEPPOU3},
+{id:"ao1",num:"意見書案第1号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"再生可能エネルギー発電促進賦課金の低減を国へ求める → 否決",official:"再生可能エネルギー発電促進賦課金の低減を求める意見書",propose:D1,decide:D1,easyText:"電気料金に上乗せされる再エネ賦課金（2025年度は1kWhあたり3.98円、一般家庭で年2万円弱の負担）の低減を国に求める意見書案です。角田修一議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"再生可能エネルギー発電促進賦課金の低減を求める意見書（提出者：角田修一議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao2",num:"意見書案第2号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"選択的夫婦別姓の法制化を国へ求める → 否決",official:"通称使用の法制化を中止し、選択的夫婦別姓の法制化を求める意見書",propose:D1,decide:D1,easyText:"通称使用の法制化を中止し、選択的夫婦別姓の法制化を求める意見書案です。近藤好枝議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"通称使用の法制化を中止し、選択的夫婦別姓の法制化を求める意見書（提出者：近藤好枝議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao3",num:"意見書案第3号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"高次脳機能障害者への支援強化を県へ求める → 否決",official:"高次脳機能障害者支援法施行に伴う群馬県の取組強化を求める意見書",propose:D1,decide:D1,easyText:"2026年4月に施行される高次脳機能障害者支援法に伴い、県の支援体制の強化を求める意見書案です。角田修一議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"高次脳機能障害者支援法施行に伴う群馬県の取組強化を求める意見書（提出者：角田修一議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao4",num:"意見書案第4号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"賃上げに向けた価格転嫁の推進を県へ求める → 否決",official:"賃上げの着実な推進に向けたさらなる価格転嫁の推進に関する意見書",propose:D1,decide:D1,easyText:"中小企業の価格転嫁を進め、賃上げにつなげる取組の強化を県に求める意見書案です。角田修一議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"賃上げの着実な推進に向けたさらなる価格転嫁の推進に関する意見書（提出者：角田修一議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao5",num:"意見書案第5号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"食料・農業・農村政策の見直しを国へ求める → 否決",official:"食料・農業・農村政策に関する意見書",propose:D1,decide:D1,easyText:"食料安全保障の確立など、食料・農業・農村政策の抜本的な見直しを国に求める意見書案です。角田修一議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"食料・農業・農村政策に関する意見書（提出者：角田修一議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao6",num:"意見書案第6号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"農業の再生と食料自給率の向上を国へ求める → 否決",official:"農業を再生し食料自給率を抜本的に高めることを求める意見書",propose:D1,decide:D1,easyText:"農業を再生し、食料自給率を抜本的に高めることを国に求める意見書案です。賛成少数で否決されました。",officialText:"農業を再生し食料自給率を抜本的に高めることを求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao7",num:"意見書案第7号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"非核三原則の堅持を国へ求める → 否決",official:"非核三原則の堅持を求める意見書",propose:D1,decide:D1,easyText:"非核三原則の堅持を国に求める意見書案です。賛成少数で否決されました。",officialText:"非核三原則の堅持を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao8",num:"意見書案第8号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"OTC類似薬の保険適用除外を行わないよう国へ求める → 否決",official:"ＯＴＣ類似薬の保険適用除外を行わないことを求める意見書",propose:D1,decide:D1,easyText:"市販薬に似た「OTC類似薬」を健康保険の適用から外さないよう国に求める意見書案です。賛成少数で否決されました。",officialText:"ＯＴＣ類似薬の保険適用除外を行わないことを求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao9",num:"意見書案第9号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"「台湾有事」発言の撤回と日中関係の改善を国へ求める → 否決",official:"高市首相による「台湾有事は存立危機事態」発言を撤回し、日中関係の改善へ努力を求める意見書",propose:D1,decide:D1,easyText:"首相の「台湾有事は存立危機事態」との発言の撤回と、日中関係の改善への努力を国に求める意見書案です。賛成少数で否決されました。",officialText:"高市首相による「台湾有事は存立危機事態」発言を撤回し、日中関係の改善へ努力を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"ao10",num:"意見書案第10号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"憲法改正の発議をしないよう国へ求める → 否決",official:"憲法改正の発議をしないよう求める意見書",propose:D1,decide:D1,easyText:"憲法改正の発議をしないよう国に求める意見書案です。賛成少数で否決されました。この会期の意見書案10件は、すべて否決となりました。",officialText:"憲法改正の発議をしないよう求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU3,vote:true,voteNote:"賛成少数で否決されました。"}
+];
+
+var FEATURED1=[
+{bill:"a43",tag:"✦ 否決された公約",title:"市長公約「第1子保育料半額」が賛成11・反対26で否決",desc:"9月定例会で見直し案が可決されるまでの出発点となった、この会期最大の焦点です。"},
+{bill:"a15",tag:"✦ 予算議会",title:"令和8年度当初予算が成立、一般会計1,618億円",desc:"前年度比2.5%増の当初予算。賛否が分かれましたが賛成多数で可決されました。"},
+{bill:"a45",tag:"✦ まちの記憶を守る",title:"歴史的建築物の保存・活用の条例を新設",desc:"歴史ある建物を守り生かすための新しいルールが、全会一致でできました。"}
+];
+
+var QUESTIONS1=[
+{name:"小曽根英明",faction:"前橋高志会・代表質問",topics:["当初予算編成と財政運営について","人をはぐくむまちづくりについて","希望をかなえるまちづくりについて","生涯活躍のまちづくりについて","活気あふれるまちづくりについて","魅力あふれるまちづくりについて","持続可能なまちづくりについて"]},
+{name:"小渕一明",faction:"前橋令明・代表質問",topics:["市政について（財政状況・保育料補助・電子地域通貨・競輪事業・中心市街地再開発など）"]},
+{name:"中里武",faction:"公明党・代表質問",topics:["令和8年度当初予算の特徴について","持続可能な財政運営について","デジタルグリーンシティ前橋の推進について","にぎわい創出と地域経済の再生について","子供子育てについて","防災、減災対策の強化策について"]},
+{name:"近藤好枝",faction:"日本共産党・代表質問",topics:["市長の政治姿勢について","市政の施策について（中心市街地再開発・清掃施設広域化・学校統廃合・子育て支援など）"]},
+{name:"角田修一",faction:"まえばし市民クラブ・代表質問",topics:["令和8年度当初予算案について","第七次総合計画について"]},
+{name:"窪田出",faction:"前橋高志会",topics:["子育て政策について","公共交通政策について","競輪事業について","手話言語条例10周年記念事業について"]},
+{name:"堤波志芽",faction:"前橋令明",topics:["資産活用について","学校教育について","公園の管理について","めぶくIDについて"]},
+{name:"吉田博昭",faction:"前橋豊輪",topics:["中心市街地について","歴史的建築物の保存活用について","グリーンドーム前橋について","教育施策について","地域の諸課題について"]},
+{name:"下田一成",faction:"前橋令明",topics:["デマンドバスについて","園芸高温対策支援事業補助金について","中学校部活動の地域展開について","建設残土処分場について","災害危機管理について","学校施設修繕について","地域の諸課題について"]},
+{name:"須賀博史",faction:"前橋高志会",topics:["湯けむり国スポ・全スポぐんまの準備状況について","更生保護施設全面改築建設補助について","コンベンション機能について","めぶくPayについて","次世代の教育について"]},
+{name:"石塚武",faction:"公明党",topics:["群馬総社駅整備事業について","情報政策について","交通政策について","ごみ減量について"]},
+{name:"小林久子",faction:"日本共産党",topics:["高過ぎる国民健康保険税と子ども・子育て支援金について","加齢性難聴への支援について","老朽化した粕川公民館の早期建て替えについて"]},
+{name:"関俊夫",faction:"",topics:["市道00-065号線（泉橋通線）の整備について","ごみ処理広域化について","救急業務について","林野火災注意報及び林野火災警報について"]},
+{name:"大澤智之",faction:"まえばし市民クラブ",topics:["防災について","DXについて","交通政策について","前橋の農政について","動物愛護について"]},
+{name:"市村均光",faction:"前橋令明",topics:["当初予算編成について","第1子保育料の軽減について","前橋総合運動公園整備事業について","堀越町地内建設発生土処分場跡地活用について","市民サービスの向上に向けた取組について","子供の貧困について"]},
+{name:"富田公隆",faction:"前橋高志会",topics:["農業政策について","前橋市庁舎ESCO事業について","公園管理について","産業政策について"]},
+{name:"林幸一",faction:"前橋令明",topics:["ごみの減量化について","清掃施設広域整備事業について","まえばし電子地域通貨推進事業について","交通安全教育について","市民の健康について","前橋花火大会について","歴史的建築物の保存及び活用に関する条例の制定について","地域の諸課題について"]},
+{name:"間仁田諭",faction:"前橋豊輪",topics:["子育て施策について","市民の健康について","母子保健DXの推進について","ウォーターPPPの導入検討について","本市の農業について","地域の諸課題について"]},
+{name:"高橋照代",faction:"公明党",topics:["RSウイルス感染症について","子供の食の保障について","教育環境の充実について"]},
+{name:"吉原大輔",faction:"日本共産党",topics:["平和行政の強化について","市営住宅政策の拡充と問題点について","市民の暮らしへの支援について"]},
+{name:"林倫史",faction:"前橋高志会",topics:["総合計画の策定について","上毛電鉄について","シティプロモーション・ブランド戦略について","イノベーション創出支援事業について","前橋市営住宅広瀬団地建替事業について","GIGAスクールについて","小学校体育館の空調整備について"]},
+{name:"水野芳宣",faction:"前橋令明",topics:["DXについて","行財政運営の最適化について","群馬総社駅について","駒寄スマートIC産業団地について","新前橋駅について","道路整備について","地域の諸課題について"]},
+{name:"三森和也",faction:"まえばし市民クラブ",topics:["前橋市いじめ問題再調査委員会条例の制定について","本市の魅力あるまちづくりについて","公共サービス提供における本市の職場環境について","清掃行政について","精神保健福祉施策の充実について"]},
+{name:"明野康剛",faction:"公明党",topics:["男女共同参画の取組について","学校給食のアレルギー疾患対策について","前橋市営住宅広瀬団地建替事業について","地域の安全について"]},
+{name:"吉田直弘",faction:"日本共産党",topics:["前橋テルサ利活用の課題について","市立図書館本館の老朽化対策について","総社古墳群保存の課題について"]},
+{name:"入澤繭子",faction:"なないろ",topics:["まつりについて","環境について","子供政策について","教育について","迷惑防止策について"]},
+{name:"宮崎裕紀子",faction:"無所属の会",topics:["千代田町中心拠点地区再開発事業について","前橋テルサについて","文化施設について","クビアカツヤカミキリについて","地域の諸課題について"]},
+{name:"岸川知己",faction:"暁鐘",topics:["日本版DBSの運用と課題について","本市のデジタル政策について","地域の諸課題について"]},
+{name:"阿久澤萌",faction:"無所属クラブ",topics:["東部地域の諸課題について","歴史まちづくりについて","農業施策について"]},
+{name:"中林章",faction:"七星",topics:["令和8年度当初予算案について","前橋市の将来像について"]}
+];
+
+var QCOUNT={}; QUESTIONS3.forEach(function(q){QCOUNT[q.name]=q.topics.length;});
+
+var BILLS2=[
+{id:"b63",num:"議案第63号",cat:"予算",catLabel:"💰 予算",result:"可決",resultShort:"可決",easy:"令和8年度の一般会計予算を組み替え（6月補正）",official:"令和8年度前橋市一般会計補正予算",propose:P2,decide:D2,easyText:"令和8年度の一般会計補正予算です。委員会への付託を省略して6月22日に採決され、全会一致で可決されました。",officialText:"令和8年度前橋市一般会計補正予算について審議し、可決（全会一致）となりました（令和8年6月22日議決）。",gloss:["補正予算","一般会計"],src:SRC_GEPPOU6},
+{id:"b64",num:"議案第64号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"市税のルールを改正",official:"前橋市市税条例の改正について",propose:P2,decide:D2,easyText:"市の市税条例の改正です。全会一致で可決されました。",officialText:"前橋市市税条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU6},
+{id:"b65",num:"議案第65号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"地方活力向上地域の固定資産税の特例ルールを改正",official:"前橋市地方活力向上地域における固定資産税の課税の特例に関する条例の改正について",propose:P2,decide:D2,easyText:"企業の地方移転などを後押しする「地方活力向上地域」での固定資産税の課税特例に関する条例の改正です。全会一致で可決されました。",officialText:"前橋市地方活力向上地域における固定資産税の課税の特例に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例"],src:SRC_GEPPOU6},
+{id:"b66",num:"議案第66号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"児童福祉施設の設備・運営基準のルールを改正",official:"前橋市児童福祉施設の設備及び運営に関する基準を定める条例等の改正について",propose:P2,decide:D2,easyText:"児童福祉施設の設備と運営の基準を定めた条例などの改正です。賛否が分かれましたが、賛成多数で可決されました（近藤好枝議員が反対討論）。",officialText:"前橋市児童福祉施設の設備及び運営に関する基準を定める条例等の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU6,vote:true},
+{id:"b67",num:"議案第67号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"認定こども園の学級編制・職員・設備などの基準ルールを改正",official:"前橋市幼保連携型認定こども園の学級の編制、職員、設備及び運営に関する基準を定める条例及び前橋市幼保連携型認定こども園以外の認定こども園の認定の要件を定める条例の改正について",propose:P2,decide:D2,easyText:"幼保連携型認定こども園などの基準を定めた2つの条例の改正です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"前橋市幼保連携型認定こども園の学級の編制、職員、設備及び運営に関する基準を定める条例及び前橋市幼保連携型認定こども園以外の認定こども園の認定の要件を定める条例の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU6,vote:true},
+{id:"b68",num:"議案第68号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",split:true,easy:"ジョブセンターまえばしの設置・管理のルールを改正",official:"ジョブセンターまえばしの設置及び管理に関する条例の改正について",propose:P2,decide:D2,easyText:"就労支援施設「ジョブセンターまえばし」の設置と管理に関する条例の改正です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"ジョブセンターまえばしの設置及び管理に関する条例の改正について審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","条例"],src:SRC_GEPPOU6,vote:true},
+{id:"b69",num:"議案第69号",cat:"条例",catLabel:"📜 条例",result:"可決",resultShort:"可決",easy:"水道事業等の設置ルールと市長等の損害賠償責任の一部免責のルールを改正",official:"前橋市水道事業等の設置等に関する条例及び前橋市長等の損害賠償責任の一部免責に関する条例の改正について",propose:P2,decide:D2,easyText:"水道事業等の設置などに関する条例と、市長等の損害賠償責任の一部免責に関する条例の改正です。全会一致で可決されました。",officialText:"前橋市水道事業等の設置等に関する条例及び前橋市長等の損害賠償責任の一部免責に関する条例の改正について審議し、可決（全会一致）となりました。",gloss:["議案","条例","企業会計"],src:SRC_GEPPOU6},
+{id:"b70",num:"議案第70号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"前橋工科大学2号館・図書館の建て替え（建築工事）の契約",official:"工事請負契約の締結について（前橋工科大学２号館・図書館改築建築工事）",propose:P2,decide:D2,easyText:"前橋工科大学の2号館と図書館を建て替える建築工事の契約を結ぶ議案です。全会一致で可決されました。なお、この契約は9月の第3回定例会で内容の変更が議決されています（議案第133号）。",officialText:"工事請負契約の締結について（前橋工科大学２号館・図書館改築建築工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約"],src:SRC_GEPPOU6},
+{id:"b71",num:"議案第71号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"前橋工科大学2号館・図書館の建て替え（電気設備工事）の契約",official:"工事請負契約の締結について（前橋工科大学２号館・図書館改築電気設備工事）",propose:P2,decide:D2,easyText:"前橋工科大学2号館・図書館の建て替えに伴う電気設備工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（前橋工科大学２号館・図書館改築電気設備工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約"],src:SRC_GEPPOU6},
+{id:"b72",num:"議案第72号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"前橋工科大学2号館・図書館の建て替え（機械設備工事）の契約",official:"工事請負契約の締結について（前橋工科大学２号館・図書館改築機械設備工事）",propose:P2,decide:D2,easyText:"前橋工科大学2号館・図書館の建て替えに伴う機械設備工事の契約を結ぶ議案です。全会一致で可決されました。",officialText:"工事請負契約の締結について（前橋工科大学２号館・図書館改築機械設備工事）を審議し、可決（全会一致）となりました。",gloss:["議案","工事請負契約"],src:SRC_GEPPOU6},
+{id:"b73",num:"議案第73号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"高規格救急自動車を購入",official:"物品の購入について（高規格救急自動車）",propose:P2,decide:D2,easyText:"高規格の救急自動車を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（高規格救急自動車）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b74",num:"議案第74号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"屈折はしご付き消防自動車を購入",official:"物品の購入について（屈折はしご付消防自動車）",propose:P2,decide:D2,easyText:"屈折はしご付きの消防自動車を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（屈折はしご付消防自動車）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b75",num:"議案第75号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"災害対応用の特殊な救急自動車を購入",official:"物品の購入について（災害対応特殊救急自動車）",propose:P2,decide:D2,easyText:"災害対応用の特殊な救急自動車を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（災害対応特殊救急自動車）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b76",num:"議案第76号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"消防ポンプ自動車の「ぎ装」（装備部分）を購入",official:"物品の購入について（消防ポンプ自動車ぎ装）",propose:P2,decide:D2,easyText:"消防ポンプ自動車の装備部分（ぎ装）を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（消防ポンプ自動車ぎ装）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b77",num:"議案第77号",cat:"契約・財産",catLabel:"🔧 契約・財産",result:"可決",resultShort:"可決",easy:"消防ポンプ自動車のシャーシ（車台）を購入",official:"物品の購入について（消防ポンプ自動車シャーシ）",propose:P2,decide:D2,easyText:"消防ポンプ自動車の車台（シャーシ）を買い入れる議案です。全会一致で可決されました。",officialText:"物品の購入について（消防ポンプ自動車シャーシ）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b78",num:"議案第78号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",easy:"広瀬スポーツ・カルチャーセンターの指定管理者を指定",official:"公の施設の指定管理者の指定について（前橋市広瀬スポーツ・カルチャーセンター）",propose:P2,decide:D2,easyText:"前橋市広瀬スポーツ・カルチャーセンターの運営を任せる「指定管理者」を指定する議案です。全会一致で可決されました。総括質問でも同センターが取り上げられました。",officialText:"公の施設の指定管理者の指定について（前橋市広瀬スポーツ・カルチャーセンター）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b79",num:"議案第79号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",easy:"自動車の撤去などを求める訴えを起こす",official:"訴えの提起について（自動車撤去請求等）",propose:P2,decide:D2,easyText:"自動車の撤去などを求めて訴えを起こす議案です。全会一致で可決されました。",officialText:"訴えの提起について（自動車撤去請求等）を審議し、可決（全会一致）となりました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6},
+{id:"b80",num:"議案第80号",cat:"その他",catLabel:"🧭 その他",result:"可決",resultShort:"可決",split:true,easy:"前橋公園の指定管理者についての決めた内容を変更",official:"公の施設の指定管理者の指定に係る議決事項の変更について（前橋公園の各公園施設の一部）",propose:P2,decide:D2,easyText:"前橋公園の各公園施設の一部の指定管理者について、以前に議決した内容を変更する議案です。賛否が分かれましたが、賛成多数で可決されました。",officialText:"公の施設の指定管理者の指定に係る議決事項の変更について（前橋公園の各公園施設の一部）を審議し、賛成多数で原案のとおり可決されました。",gloss:["議案","原案可決"],src:SRC_GEPPOU6,vote:true},
+{id:"bh3",num:"報告第3号",cat:"報告",catLabel:"📄 報告",result:"承認",resultShort:"承認",easy:"市税条例等の改正を市長が先に決めたこと（専決処分）を承認",official:"前橋市市税条例等の改正の専決処分について",propose:P2,decide:D2,easyText:"市税条例などの改正を市長が議会に先立って決めたこと（専決処分）について、議会が承認しました。全会一致でした。",officialText:"前橋市市税条例等の改正に係る専決処分について、議会の承認を求める報告です。審議の結果、承認（全会一致）となりました。",gloss:["報告","専決処分","承認"],src:SRC_GEPPOU6},
+{id:"bh4",num:"報告第4号",cat:"報告",catLabel:"📄 報告",result:"承認",resultShort:"承認",easy:"国民健康保険税条例の改正を市長が先に決めたこと（専決処分）を承認",official:"前橋市国民健康保険税条例の改正の専決処分について",propose:P2,decide:D2,easyText:"国民健康保険税条例の改正を市長が専決処分したことについて、議会が承認しました。全会一致でした。",officialText:"前橋市国民健康保険税条例の改正に係る専決処分について、議会の承認を求める報告です。審議の結果、承認（全会一致）となりました。",gloss:["報告","専決処分","承認"],src:SRC_GEPPOU6},
+{id:"bn1",num:"議案第81〜104号",cat:"人事",catLabel:"👤 人事",result:"同意",resultShort:"同意",easy:"農業委員会の委員24人の任命に同意（24件をまとめて表示）",official:"農業委員会の委員の任命について（議案第81号〜第104号・24件）",propose:D2B,decide:D2B,easyText:"農業委員会の委員24人を任命することについて、議会が同意しました。1人につき1議案ずつ、議案第81号から第104号までの24件が閉会日に追加提案され、いずれも全会一致で同意されました。このページでは24件を1件にまとめて載せています。",officialText:"農業委員会の委員の任命について（議案第81号〜第104号、計24件）、議会の同意を求める追加議案です。審議の結果、いずれも同意（全会一致）となりました。",gloss:["議案","同意"],src:SRC_GEPPOU6},
+{id:"bo11",num:"意見書案第11号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",easy:"国スポ開催への支援強化を県へ求める（全会一致で可決）",official:"第８３回国民スポーツ大会開催に係る支援強化を求める意見書",propose:D2B,decide:D2B,easyText:"「湯けむり国スポ・全スポぐんま2029」で前橋市は県内最多の14競技を担当します。開催市町村の運営経費の3分の2を県が補助することなどを求める意見書で、須賀博史議員ほかが提出し、全会一致で可決されました。",officialText:"第８３回国民スポーツ大会開催に係る支援強化を求める意見書（提出者：須賀博史議員ほか）について審議し、可決（全会一致）となりました。地方自治法第99条の規定により、群馬県へ提出されます。",gloss:["意見書","国スポ・全スポ"],src:SRC_GEPPOU6},
+{id:"bo12",num:"意見書案第12号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",split:true,easy:"地方税財源の充実確保を国へ求める",official:"地方税財源の充実確保を求める意見書",propose:D2B,decide:D2B,easyText:"令和9年度の地方財政計画に、人件費増や物価高騰への対応など地方の財政需要を反映し、地方一般財源総額を確保するよう国に求める意見書です。角田修一議員ほかが提出し、賛成多数で可決されました。",officialText:"地方税財源の充実確保を求める意見書（提出者：角田修一議員ほか）について審議し、賛成多数で可決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true},
+{id:"bo13",num:"意見書案第13号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",split:true,easy:"安定的な皇位継承の国会論議を進めるよう国へ求める",official:"皇室の伝統に基づく安定的な皇位継承の国会論議促進を求める意見書",propose:D2B,decide:D2B,easyText:"皇室の伝統に基づく安定的な皇位継承のため、国会での論議を進めて総意を取りまとめるよう国に求める意見書です。小曽根英明議員ほかが提出し、賛成多数で可決されました。",officialText:"皇室の伝統に基づく安定的な皇位継承の国会論議促進を求める意見書（提出者：小曽根英明議員ほか）について審議し、賛成多数で可決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true},
+{id:"bo14",num:"意見書案第14号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",split:true,easy:"知的障害者等の意欲と尊厳を守る就労環境の整備を国へ求める",official:"知的障害者等の意欲と尊厳を守る適切な就労環境整備に関する意見書",propose:D2B,decide:D2B,easyText:"障害者雇用をめぐる不適切な就労環境の問題を受け、知的障害者等の意欲と尊厳を守る就労環境の整備を国に求める意見書です。角田修一議員ほかが提出し、賛成多数で可決されました。",officialText:"知的障害者等の意欲と尊厳を守る適切な就労環境整備に関する意見書（提出者：角田修一議員ほか）について審議し、賛成多数で可決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true},
+{id:"bo15",num:"意見書案第15号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"可決",resultShort:"可決",split:true,easy:"ドナーミルク（寄附された母乳）の利用拡大を国へ求める",official:"ドナーミルクの利用拡大を求める意見書",propose:D2B,decide:D2B,easyText:"低出生体重児の命を守るドナーミルクについて、法的な位置づけの明確化や母乳バンクへの支援などを国に求める意見書です。中里武議員ほかが提出し、賛成多数で可決されました。",officialText:"ドナーミルクの利用拡大を求める意見書（提出者：中里武議員ほか）について審議し、賛成多数で可決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true},
+{id:"bo16",num:"意見書案第16号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"住まいの安定と居住支援の抜本的強化を国へ求める → 否決",official:"住まいの安定と居住支援の抜本的強化を求める意見書",propose:D2B,decide:D2B,easyText:"住宅手当制度の創設や居住支援の強化などを国に求める意見書案です。中里武議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"住まいの安定と居住支援の抜本的強化を求める意見書（提出者：中里武議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo17",num:"意見書案第17号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"内密出産に対応する体制整備を国へ求める → 否決",official:"内密出産に対応するための体制整備等の促進を求める意見書",propose:D2B,decide:D2B,easyText:"孤立出産を防ぐため、内密出産に対応する体制整備などを国に求める意見書案です。角田修一議員ほかが提出しましたが、賛成少数で否決されました。",officialText:"内密出産に対応するための体制整備等の促進を求める意見書（提出者：角田修一議員ほか）について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo18",num:"意見書案第18号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"核兵器禁止条約の再検討会議へのオブザーバー参加を国へ求める → 否決",official:"核兵器禁止条約第１回再検討会議へのオブザーバー参加を求める意見書",propose:D2B,decide:D2B,easyText:"核兵器禁止条約の第1回再検討会議へ、日本がオブザーバーとして参加するよう国に求める意見書案です。賛成少数で否決されました。",officialText:"核兵器禁止条約第１回再検討会議へのオブザーバー参加を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo19",num:"意見書案第19号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"高額療養費制度の見直しを国へ求める → 否決",official:"高額療養費制度の見直しを求める意見書",propose:D2B,decide:D2B,easyText:"高額療養費制度の見直しを国に求める意見書案です。賛成少数で否決されました。",officialText:"高額療養費制度の見直しを求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo20",num:"意見書案第20号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"憲法9条を守り生かし、戦争しない国づくりを国へ求める → 否決",official:"憲法９条を守り生かし、戦争しない国づくりを求める意見書",propose:D2B,decide:D2B,easyText:"憲法9条を守り生かし、戦争しない国づくりを求める意見書案です。賛成少数で否決されました。",officialText:"憲法９条を守り生かし、戦争しない国づくりを求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo21",num:"意見書案第21号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"介護保険制度の抜本的改善を国へ求める → 否決",official:"介護保険制度の抜本的改善を求める意見書",propose:D2B,decide:D2B,easyText:"介護保険制度の抜本的な改善を国に求める意見書案です。賛成少数で否決されました。",officialText:"介護保険制度の抜本的改善を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo22",num:"意見書案第22号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"医療従事者の働く環境と医療機関の経営安定への支援を国へ求める → 否決",official:"医療従事者が安心して働き続けられる環境整備及び医療機関の経営安定への支援を求める意見書",propose:D2B,decide:D2B,easyText:"医療従事者が安心して働き続けられる環境の整備と、医療機関の経営安定への支援を国に求める意見書案です。賛成少数で否決されました。",officialText:"医療従事者が安心して働き続けられる環境整備及び医療機関の経営安定への支援を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"},
+{id:"bo23",num:"意見書案第23号",cat:"請願・意見書",catLabel:"✉️ 請願・意見書",result:"否決",resultShort:"否決",split:true,easy:"物価高・資材不足から暮らしと営業を守る緊急対策を国へ求める → 否決",official:"ホルムズ海峡封鎖等の影響による物価高、資材不足から暮らしと営業を守るための緊急対策を求める意見書",propose:D2B,decide:D2B,easyText:"ホルムズ海峡封鎖などの影響による物価高や資材不足から、暮らしと営業を守る緊急対策を国に求める意見書案です。賛成少数で否決されました。",officialText:"ホルムズ海峡封鎖等の影響による物価高、資材不足から暮らしと営業を守るための緊急対策を求める意見書について審議し、賛成少数で否決されました。",gloss:["意見書"],src:SRC_GEPPOU6,vote:true,voteNote:"賛成少数で否決されました。"}
+];
+
+var FEATURED2=[
+{bill:"bo11",tag:"✦ 全会一致で可決",title:"国スポ開催への支援強化を求める意見書",desc:"前橋市は県内最多の14競技を担当。運営経費の3分の2補助などを県へ求めます。"},
+{bill:"b70",tag:"✦ キャンパス整備",title:"前橋工科大学2号館・図書館の建て替え工事が契約へ",desc:"建築・電気設備・機械設備の3件の工事契約が全会一致で可決されました。"},
+{bill:"b66",tag:"✦ 賛否が分かれた",title:"児童福祉施設などの基準条例改正は賛成多数で可決",desc:"議案第66〜68号と第80号の4件は賛否が分かれ、反対討論も行われました。"}
+];
+
+var QUESTIONS2=[
+{name:"小曽根英明",faction:"前橋高志会",topics:["千代田町中心拠点地区再開発事業について","国民スポーツ大会開催に向けた対応について","空き家対策について","上下水道インフラの見える化について"]},
+{name:"林幸一",faction:"前橋令明",topics:["市政運営の基本方針について","前橋テルサについて","小学校体育館の空調について","電気火災について","食中毒について","職員の健康について","地域の諸課題について"]},
+{name:"小川真太郎",faction:"前橋高志会",topics:["ゾーン30プラスについて","治療用装具の療養費について","二中地区（第二）のまちづくりについて","まえばし幼稚園と第一保育所の統合移転について","小中学校の施設について","社会教育ビジョンの作成について","教職員の人事評価について"]},
+{name:"市村均光",faction:"前橋令明",topics:["不登校について","地域づくりについて","市民活動について","環境について"]},
+{name:"中里武",faction:"公明党",topics:["今後の市政運営について","前橋市観光ビジョンの策定について","前橋版DMO参画への期待について"]},
+{name:"近藤好枝",faction:"日本共産党",topics:["市長の政治姿勢について","低所得者に対するエアコン設置補助事業について"]},
+{name:"関俊夫",faction:"",topics:["粕川地区公共施設整備について","前橋市公営住宅等長寿命化計画について","通信指令装置の整備について","マイナ救急の本格運用について"]},
+{name:"三森和也",faction:"まえばし市民クラブ",topics:["今後の市政運営について","誰も取り残さないまちづくり施策充実について","本市職員の働き方、休み方改革について","公共交通施策の充実について"]},
+{name:"山田秀明",faction:"前橋豊輪",topics:["前橋市の将来像について","公共施設の在り方、複合化について","消防施設について","鉛製給水管について","地域要望について"]},
+{name:"佐藤祥平",faction:"前橋令明",topics:["障害者スポーツについて","外国人共生社会について","キャッシュレス化推進について","長寿命化計画について","前橋市広瀬スポーツ・カルチャーセンターについて"]},
+{name:"林倫史",faction:"前橋高志会",topics:["これからの前橋市について","前橋市政策アドバイザーについて","スノーピーク赤城キャンプフィールドについて","小中一貫教育の検討について","前橋市人材育成・確保基本方針の改正について","第八次前橋市総合計画の策定について"]},
+{name:"木部秀人",faction:"前橋令明",topics:["本市のガバナンス体制について","駐車場について","本市の魅力度向上について","本市の稼ぐ力向上について","地域の諸課題について"]},
+{name:"高橋照代",faction:"公明党",topics:["受動喫煙防止の取組について","部活動について","電子文書の管理について","職員の人事管理について"]},
+{name:"吉原大輔",faction:"日本共産党",topics:["中東情勢の影響による中小業者への支援について","公共交通の拡充について"]},
+{name:"須賀博史",faction:"前橋高志会",topics:["湯けむり国スポ・全スポぐんまに向けた施設整備状況について","財政について","地域未来戦略について","貸館システムについて","高校の授業料について","地域の諸課題について"]},
+{name:"下田一成",faction:"前橋令明",topics:["スローシティについて","国スポについて","赤城山観光について","再生可能エネルギーの活用について","クリエイティブシティ構想について","公共交通の諸施策について"]},
+{name:"新井美加",faction:"前橋高志会",topics:["高齢者対策について","広瀬川河畔緑地の利活用促進について","国際芸術祭について","下水道事業におけるウォーターPPPの導入について","地域の諸課題について"]},
+{name:"大澤智之",faction:"まえばし市民クラブ",topics:["防災について","前橋の農政について","環境問題について","交通政策について","人口減少について"]},
+{name:"吉田博昭",faction:"前橋豊輪",topics:["国民スポーツ大会について","ごみ施策について","市民生活について","市営住宅の入居促進について","にぎわい創出について","市のホームページについて"]},
+{name:"水野芳宣",faction:"前橋令明",topics:["めぶくPayについて","経済センサスの実施について","公共交通政策について","子育て環境の整備について","地域の諸課題について"]},
+{name:"藤江彰",faction:"前橋高志会",topics:["土地利用制度の見直しについて","総合福祉会館、第四コミュニティセンターの設備機器更新について","各所管におけるシステム更新について","旧宮城幼稚園の利活用について","子育て支援について","クビアカツヤカミキリ対策について"]},
+{name:"明野康剛",faction:"公明党",topics:["学校における働き方改革について","若者政策について","廃棄物処理について"]},
+{name:"小林久子",faction:"日本共産党",topics:["物価高騰から市民生活を守る施策の拡充について","粕川地区の住民要望に応える施設整備について"]},
+{name:"入澤繭子",faction:"なないろ",topics:["保健所業務について","粕川農産物加工施設について","教育について","こどもの居場所づくり支援体制強化事業について"]},
+{name:"宮崎裕紀子",faction:"無所属の会",topics:["動物愛護について","財政について","まちづくりについて","市内施設について"]},
+{name:"岸川知己",faction:"暁鐘",topics:["まちづくりについて","重層的支援体制整備事業について","育児を支える職場環境について"]},
+{name:"阿久澤萌",faction:"無所属クラブ",topics:["農業施策について","赤城南麓の観光施策について","教育施策について"]},
+{name:"中林章",faction:"七星",topics:["前橋市の文化芸術活動について","前橋テルサ再利用について"]},
+{name:"吉田直弘",faction:"日本共産党",topics:["土地利用制度の見直しの問題点について","東地区の諸課題について","遠見山古墳の住民要望に応える保存について"]},
+{name:"角田修一",faction:"まえばし市民クラブ",topics:["教育委員会のじんかい車（パッカー車）の購入について","小中学校の樹木の剪定について","前橋市水道局公有地利活用事業について","PTAについて","令和6年度包括外部監査の結果報告について"]}
+];
+
+var SRC_DAYORI177="https://www.city.maebashi.gunma.jp/material/files/group/85/8935.pdf";
+var DEBATE={
+s3:{
+flow:[
+["9月1日","開会・提案説明","市長提出議案40件（令和7年度決算の認定12件、補正予算4件、条例8件、工事契約・物品購入10件、人事5件、報告1件）が上程され、市長と各部長から提案理由の説明がありました。"],
+["9月8・9日","総括質問","26人の議員が質問に立ちました。手話言語条例10年の節目にあたり、質問する議員は冒頭の自己紹介を手話で行いました。"],
+["会期中","委員会審査","決算認定や保育料の条例などを、所管の常任委員会に付託して審査しました。"],
+["9月25日","最終日・討論と表決","委員長報告の後、討論と表決が行われ、決算12件の認定、保育料条例の可決、意見書2件の可決をもって閉会しました。"]
+],
+focus:[
+{kind:"総括質問 → 討論",cls:"",title:"議案第124号 第1子保育料の見直し ―― 3月の否決からどう変わったか",
+askWho:"問い ― 藤江彰議員（前橋高志会）の総括質問",ask:"3月に否決された「一律半額」案を見直した経緯と、今回の制度の内容、財政負担の見通しを問いました。再提案の方針自体は、8月19日の教育福祉常任委員会で市側から示され、その場でも財源の裏付けへの指摘が出ていました。",
+ansWho:"答え ― 市の答弁",ans:"一律半額では、保育料が高い高所得の世帯ほど軽減額が大きくなる等の指摘を受けて見直した、との説明がありました。新しい制度は軽減を最大6割とし、軽減額に月1万5千円の上限を設定。年収がおおむね400万円を下回る世帯は6割軽減、それ以上の世帯は1万5千円の軽減となり、対象は約1,500人、経費は年間約2.8億円（3月案の約3.6億円から圧縮）で、持続可能な制度にする考えが示されました。",
+result:"結果：最終日（9月25日）には、保育料の条例などについて日本共産党市議団から反対討論が行われ、賛成討論も行われたうえで採決され、賛成多数で可決。令和9年4月から実施されます。議案の内容は下の議案第124号で確認できます。",src:SRC_DAYORI,srcLabel:"出典：まえばし市議会だより第178号（公式PDF）→"},
+{kind:"総括質問",cls:"",title:"公共交通 ― 駒形地区の交通空白をどう解消するか",
+askWho:"問い ― 藤江彰議員（前橋高志会）",ask:"駒形地区をはじめとする公共交通の空白地域の解消と、持続可能な公共交通の構築に向けた市の見解を問いました。",
+ansWho:"答え ― 市の答弁（議会だよりの要旨）",ans:"駒形地区は市街化区域で人口の集積が進んでいる一方、バス路線がなく、地域からも路線新設の要望が出ている交通空白の地区だと、市も課題として認識していることが示されました。そのうえで、駒形駅へのバス路線の新設や既存路線の延伸などを含めた検討を進め、地域と連携しながら持続可能な公共交通の構築に取り組む旨の答弁がありました。",
+result:"総括質問は採決とは別に市政の方針をただす場面です。答弁の全文は市の会議録で確認できます。",src:SRC_DAYORI,srcLabel:"出典：まえばし市議会だより第178号（公式PDF）→"},
+{kind:"委員会",cls:"committee",title:"決算の審査 ― 昨年度のお金の使い方を点検する",
+askWho:"委員会での審査",ask:"令和7年度の各会計決算（議案第105〜116号）は所管の常任委員会に付託され、歳入・歳出の内容が審査されました。一般会計は歳入1,599億7,103万円、歳出1,531億8,033万円です。",
+ansWho:"本会議での決着",ans:"最終日に委員長報告と討論が行われ、決算12件は、賛否が分かれたものを含めていずれも認定・可決されました。決算額は、特別会計の合計が歳入1,186億3,912万円・歳出1,167億6,488万円、企業会計の合計が歳入217億6,222万円・歳出256億2,574万円でした（市議会だより第178号の決算表による）。決算の認定は、予算が目的どおりに使われたかを議会が事後にチェックする手続です。",
+result:"決算で問われた点は、次の当初予算の審査につながります。各決算の内訳は下の議案第105〜116号から確認できます。",src:SRC_DAYORI,srcLabel:"出典：まえばし市議会だより第178号（公式PDF）→"}
+],
+committee:{title:"委員会審査（第3回定例会）",body:"決算認定・補正予算・条例などの議案は、本会議の総括質問の後、総務・教育福祉・市民経済・建設水道の4常任委員会に振り分けられ、担当部局への質疑を経て「可決すべきもの」かどうかが決められ、最終日に委員長が本会議で報告しました。保育料の見直し案は教育福祉常任委員会の所管で、再提案の方針自体も8月19日の同委員会で市側から説明されています。この会期の委員会審査の細部は、議会だより第178号の定例会概要に基づきます。"}
+},
+s2:{
+flow:[
+["6月11日","開会・提案説明","市長提出議案20件（補正予算、条例、前橋工科大学2号館・図書館の工事契約など）が上程され、提案理由の説明がありました。"],
+["6月18・19・22日","総括質問","30人の議員が3日間にわたって質問し、市長や所管部長から答弁がありました。"],
+["6月22日","討論・表決","この会期は委員会への付託を省略し、総括質問の後に本会議でそのまま討論・表決を行いました。第66〜68・80号には近藤好枝議員から反対討論がありました。"],
+["6月30日","最終日","農業委員会委員24人の任命に同意し、意見書13件を表決（5件可決・8件否決）して閉会しました。"]
+],
+focus:[
+{kind:"討論",cls:"debate",title:"議案第66〜68号・第80号 ― 委員会に付さず、本会議で直接議論した",
+askWho:"反対討論 ― 近藤好枝議員（日本共産党）",ask:"児童福祉施設の設備・運営基準の条例改正（第66号）、認定こども園の基準の条例改正（第67号）、ジョブセンターまえばしの条例改正（第68号）、前橋公園の指定管理者の変更（第80号）の4件について、反対討論を行いました。",
+ansWho:"本会議での決着",ans:"この会期の市長提出議案20件は委員会付託が省略され、審査の場は本会議の総括質問と討論でした。討論の後、4件はいずれも賛成多数で可決され、残る16件は全会一致で可決・承認されました。",
+result:"「付託省略」は手続を早める一方、委員会での細部の質疑は行われません。何が問われたかは本会議の記録が頼りになります。",src:SRC_GEPPOU6,srcLabel:"出典：議会月報 令和8年6月号（公式PDF）の議事経過→"},
+{kind:"総括質問",cls:"",title:"千代田町中心拠点地区再開発 ― 事業の進め方を問う",
+askWho:"問い ― 小曽根英明議員（前橋高志会）",ask:"再開発は、新築に限らず既存建物の改修や用途変更などで事業費の抑制を図りながら都市機能を確保する方向へ変化してきている。国も民間投資の促進など中心市街地再生を後押しする制度の充実を図っているが、本市は今後、事業をどのように進めていくのかを問いました。あわせて、国スポの財源確保（大会のレガシーとしてスポーツ振興に充てられる基金を設ける他自治体の事例）についても市の考えをただしました。",
+ansWho:"答え ― 市の答弁（議会だより第177号の要旨）",ans:"再開発をめぐる国の制度の充実も踏まえ、本市でも既存建物の改修や用途変更なども含めた事業規模・計画の見直しに取り組んでおり、実現性の高い計画の策定に努める考えが示されました。国スポの財源確保については、大会のレガシーとしてスポーツ振興に充てられる基金を設ける他自治体の事例も参考に、財源確保に努める旨の答弁がありました（その後、9月定例会で国スポ・全スポの開催基金条例が可決されています）。",
+result:"再開発をめぐっては、9月定例会でも新前橋駅周辺のまちづくりなど関連の質問が続きました。",src:SRC_DAYORI177,srcLabel:"出典：まえばし市議会だより第177号（公式PDF）→"},
+{kind:"総括質問",cls:"",title:"小中一貫教育 ― 学校の適正配置とあわせて検討すべきでは",
+askWho:"問い ― 林倫史議員（前橋高志会）",ask:"小中一貫教育は、異学年の交流がしやすいことや、いわゆる中1ギャップの緩和につながる効果が期待できる。本市でも少子化で児童生徒数が減少し、適正規模・適正配置の取組が進められている。隣接校との統合や通学区の見直しだけでなく、小中一貫校や義務教育学校など小中一貫教育の推進も一つの方策として検討する必要があると考え、これまでの検討状況と当局の見解を問いました。",
+ansWho:"答え ― 市の答弁（議会だより第177号の要旨）",ans:"小中一貫教育は、異学年の交流がしやすいことや、いわゆる中1ギャップによる不安の緩和など、効果が期待できる取組だと市も承知していることが示されました。そのうえで、県内外の先進校の取組の視察や協議を重ねながら、学校の適正規模・適正配置の取組の中で検討を進めていく旨の答弁がありました。",
+result:"学校の統廃合・適正配置は、9月定例会でも入澤繭子議員が取り上げるなど、継続する論点です。",src:SRC_DAYORI177,srcLabel:"出典：まえばし市議会だより第177号（公式PDF）→"}
+],
+committee:{title:"委員会審査（第2回定例会）",body:"この会期は、市長提出議案20件すべてについて委員会への付託が省略されました。そのため委員会での質疑や審査報告はなく、6月22日の本会議で、総括質問に続いて討論・表決が行われています（議会月報 令和8年6月号の議事経過による）。委員会での議論の様子を読みたい場合は、第1回・第3回定例会のように委員会に付託された会期の記録が参考になります。"}
+},
+s1:{
+flow:[
+["3月3日","開会・議長選挙","議長に近藤登議員、副議長に林幸一議員を選出。市長提出議案43件（令和8年度当初予算、条例など）が上程され、提案理由の説明がありました。"],
+["3月9日","代表質問","5会派の代表が、当初予算と市政運営の方針について市長に問いました。"],
+["3月11・12日","総括質問と先行表決","25人の議員が総括質問を行いました。あわせて、付託を省略した令和7年度補正予算11件の討論・表決が行われ、第27・30・34号には吉田直弘議員から反対討論がありました。"],
+["3月16〜19日","委員会審査","予算・条例など32件を4常任委員会で審査。教育福祉常任委員会は、保育料半額案を賛成少数で「否決すべきもの」と決めました。"],
+["3月26日","最終日・討論と表決","委員長報告の後、討論と表決。当初予算は成立し、保育料半額案は否決。人事5件に同意、意見書10件はすべて否決して閉会しました。"]
+],
+focus:[
+{kind:"討論",cls:"debate",title:"議案第43号 第1子保育料「半額」案 ― 賛成11・反対26で否決",
+askWho:"賛成討論 ― 吉田直弘議員（日本共産党）",ask:"小学校給食費の無償化に国の交付金を活用できる見通しが立ち、財源確保のめどが立ったとして、市長の公約である保育料半額の実現を求め、賛成しました。",
+ansWho:"反対討論 ― 佐藤祥平議員（前橋令明）",ans:"目的と成果指標が不明確で、恒久的な財政負担を伴うことに懸念があるとして、反対しました。採決に先立つ3月23日には、前橋高志会から3議員が離脱して新会派「前橋豊輪」を結成し、賛成に回る動きもありました。",
+result:"結果：教育福祉常任委員会（3月19日）でも賛成少数で「否決すべきもの」とされ、本会議でも賛成11人・反対26人で否決。市長は「期待していた市民に申し訳ない」と述べ、制度を見直して9月に再提案されました（第3回定例会の議案第124号）。",src:SRC_GEPPOU3,srcLabel:"出典：議会月報 令和8年3月号（公式PDF）の討論一覧表・議事経過→"},
+{kind:"委員会",cls:"committee",title:"令和8年度当初予算の審査 ― 4委員会で4日間",
+askWho:"委員会での審査",ask:"当初予算など32件は、市民経済（3月16日）、建設水道（17日）、総務（18日）、教育福祉（19日）の各常任委員会に付託され、委員の質疑を経て審査されました。一般会計予算（1,618億4,168万円）は、総務・教育福祉の両委員会で賛成多数により「可決すべきもの」とされました。",
+ansWho:"本会議での決着",ans:"最終日、小林久子議員が当初予算など14件への反対討論を行い、新井美加・市村均光・高橋照代・大澤智之の各議員が賛成討論を行った後、当初予算は賛成多数で可決されました。",
+result:"予算は「市長の提案 → 代表質問・総括質問 → 委員会審査 → 討論・表決」の全工程がそろう、議事が最も厚い議案です。",src:SRC_GEPPOU3,srcLabel:"出典：議会月報 令和8年3月号（公式PDF）の委員会審査報告書→"},
+{kind:"総括質問",cls:"",title:"保育料をめぐる論戦は、質問の段階から始まっていた",
+askWho:"質問での追及",ask:"市村均光議員が総括質問で「第1子保育料の軽減」を取り上げたほか、近藤好枝議員の代表質問では、中心市街地再開発や学校統廃合と並んで子育て支援が問われました。保育料の財源と、支援の対象をどう絞るかが、会期を通じての争点になりました。",
+ansWho:"議事の積み重ね",ans:"市長は公約として半額の実現を目指しましたが、委員会と本会議で「一律半額の公平性」と「恒久財源」が問われ、否決後に制度を見直すことになりました。",
+result:"質問 → 委員会 → 討論という議事の積み重ねが、9月の見直し案（6割軽減・上限1万5千円）につながっています。第3回定例会の「議事で読む」と読み比べてください。",src:SRC_GEPPOU3,srcLabel:"出典：議会月報 令和8年3月号（公式PDF）の代表質問・総括質問一覧表→"}
+],
+committee:{title:"委員会審査（第1回定例会）",rows:[
+["総務常任委員会","3月18日","一般会計予算など9件を審査し、委員長を除く8人の委員が質疑を行いました。一般会計予算と行政手続条例の改正は賛成多数で、その他は全会一致で、いずれも「可決すべきもの」とされました。"],
+["教育福祉常任委員会","3月19日","当初予算や保育料の条例など12件を審査し、9人の委員が質疑を行いました。保育料半額案（第43号）は賛成少数で「否決すべきもの」とされ、いじめ問題再調査委員会条例の制定などは全会一致で「可決すべきもの」とされました。"],
+["市民経済常任委員会","3月16日","予算審査を行い、付託された議案を審査しました。"],
+["建設水道常任委員会","3月17日","予算審査を行い、付託された議案を審査しました。"]
+],note:"審査の結果は、各委員長が3月26日の本会議で報告しました。審査報告書の全文は議会月報 令和8年3月号に収録されています。"}
+}
+};
+
+var SESSIONS={
+s3:{tab:"第3回（9月）",title:"令和8年第3回定例会（9月）",meta:"会期：2026年9月1日〜9月25日（25日間）／ 市長提出議案・報告・意見書を収録",
+stats:[["42件","収録した議案・報告・意見書"],["15件","賛否が分かれた議案・報告"],["26人","総括質問した議員"],["38人","議員定数"],["11会派","会派・グループ"]],
+bills:BILLS3,featured:FEATURED3,questions:QUESTIONS3,
+qDesc:"議員が上程中の議案や市政全般について問う「総括質問」。この会期は2026年9月8日・9月9日に26人の議員が行いました。ここでは各議員が取り上げたテーマ（件名）を公式の一覧表から載せています。手話言語条例10年の節目にあたり、質問する議員は冒頭の自己紹介を手話で行いました。答弁の内容は市の会議録・議会だよりで確認できます。",
+qSrc:'出典：<a href="https://www.city.maebashi.gunma.jp/material/files/group/85/r892.pdf" target="_blank" rel="noopener">総括質問一覧表（前橋市公式PDF）</a>／<a href="https://www.city.maebashi.gunma.jp/material/files/group/85/7199.pdf" target="_blank" rel="noopener">まえばし市議会だより第178号</a>',
+voteSrc:SRC_RESULT,voteLabel:"議案の議決結果（公式PDF）の賛否一覧"},
+s2:{tab:"第2回（6月）",title:"令和8年第2回定例会（6月）",meta:"会期：2026年6月11日〜6月30日（20日間）／ 市長提出議案44件（うち農業委員会委員の任命24件は1件に集約）と意見書13件を収録",
+stats:[["57件","収録した議案・意見書"],["8件","賛否が分かれた議案・意見書"],["8件","否決された意見書"],["30人","総括質問した議員"],["38人","議員定数"]],
+bills:BILLS2,featured:FEATURED2,questions:QUESTIONS2,
+qDesc:"議員が上程中の議案や市政全般について問う「総括質問」。この会期は2026年6月18日・19日・22日の3日間に30人の議員が行いました。ここでは各議員が取り上げたテーマ（件名）を議会月報の総括質問一覧表から載せています。答弁の内容は市の会議録・議会だよりで確認できます。",
+qSrc:'出典：<a href="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0806.pdf" target="_blank" rel="noopener">議会月報 令和8年6月号（前橋市公式PDF）の総括質問一覧表</a>',
+voteSrc:SRC_GEPPOU6,voteLabel:"議会月報 令和8年6月号（公式PDF）の表決調べ"},
+s1:{tab:"第1回（3月）",title:"令和8年第1回定例会（3月）",meta:"会期：2026年3月3日〜3月26日（24日間）／ 令和8年度当初予算を決めた予算議会。市長提出議案48件・議会議案1件・意見書10件を収録",
+stats:[["59件","収録した議案・意見書"],["17件","賛否が分かれた議案"],["11件","否決された議案・意見書"],["30人","代表質問・総括質問した議員"],["38人","議員定数"]],
+bills:BILLS1,featured:FEATURED1,questions:QUESTIONS1,
+qDesc:"この会期は、3月9日に各会派の代表5人が「代表質問」を、3月11日・12日に25人の議員が「総括質問」を行いました。先頭の5人が代表質問で、会派名の後に「代表質問」と付けています。各議員が取り上げたテーマ（件名）を議会月報の一覧表から載せています。この会期の初日に、議長に近藤登議員、副議長に林幸一議員が選ばれました。答弁の内容は市の会議録・議会だよりで確認できます。",
+qSrc:'出典：<a href="https://www.city.maebashi.gunma.jp/material/files/group/85/geppou0803.pdf" target="_blank" rel="noopener">議会月報 令和8年3月号（前橋市公式PDF）の代表質問・総括質問一覧表</a>',
+voteSrc:SRC_GEPPOU3,voteLabel:"議会月報 令和8年3月号（公式PDF）の表決調べ"}
+};
+var SESS_ORDER=["s3","s2","s1"];
+var ALL_BILLS=BILLS3.concat(BILLS2,BILLS1);
+
+/* ===== ドリルダウン用ヘルパー ===== */
+var BILL_SESS={};
+(function(){var map={s3:BILLS3,s2:BILLS2,s1:BILLS1};for(var k in map){map[k].forEach(function(b){BILL_SESS[b.id]=k;});}})();
+function billSessKey(b){return BILL_SESS[b.id]||curSess;}
+function billNumN(b){var m=(b.num||"").match(/第(\d+)号/);return m?parseInt(m[1],10):null;}
+function textMatchesBill(text,b){
+  if(!text||!b)return false;
+  if(text.indexOf(b.num)>=0)return true;
+  var n=billNumN(b);if(n===null)return false;
+  if(text.indexOf("第"+n+"号")>=0)return true;
+  var re=/第(\d+)〜(\d+)号/g,m;
+  while((m=re.exec(text))!==null){if(n>=parseInt(m[1],10)&&n<=parseInt(m[2],10))return true;}
+  return false;
+}
+function focusForBill(b){
+  var d=DEBATE[billSessKey(b)];if(!d)return [];
+  var out=[];
+  d.focus.forEach(function(f){if(textMatchesBill(f.title+" "+f.ask+" "+f.ans+" "+f.result,b))out.push(f);});
+  return out;
+}
+function billForFocus(sessKey,f){
+  var list=SESSIONS[sessKey].bills;
+  for(var i=0;i<list.length;i++){if(textMatchesBill(f.title,list[i]))return list[i];}
+  return null;
+}
+/* 会期をまたぐ関連（経過がつながっているもの） */
+var RELATED_X={a43:["g124"],g124:["a43"],b70:["g133"],g133:["b70"]};
+function relatedBills(b){
+  var out=[],seen={};seen[b.id]=true;
+  function push(id){var rb=billById(id);if(rb&&!seen[rb.id]){seen[rb.id]=true;out.push(rb);}}
+  (RELATED_X[b.id]||[]).forEach(push);
+  var list=SESSIONS[billSessKey(b)].bills;
+  list.forEach(function(rb){if(rb.cat===b.cat)push(rb.id);});
+  return out.slice(0,4);
+}
+function sessBillsOf(b){return SESSIONS[billSessKey(b)].bills;}
+
+var FACTIONS=[
+{name:"前橋高志会",rep:"小曽根英明",members:[{name:"近藤登",role:"議長"},{name:"小曽根英明",role:"代表"},{name:"藤江彰"},{name:"富田公隆"},{name:"窪田出"},{name:"須賀博史"},{name:"林倫史"},{name:"小川真太郎"},{name:"金井清一"},{name:"新井美加"}]},
+{name:"前橋令明",rep:"小渕一明",members:[{name:"林幸一",role:"副議長"},{name:"小渕一明",role:"代表"},{name:"横山勝彦"},{name:"堤波志芽"},{name:"佐藤祥平"},{name:"市村均光"},{name:"木部秀人"},{name:"下田一成"},{name:"水野芳宣"}]},
+{name:"日本共産党前橋市議会議員団",rep:"近藤好枝",members:[{name:"近藤好枝",role:"代表"},{name:"小林久子"},{name:"吉田直弘"},{name:"吉原大輔"}]},
+{name:"公明党前橋市議会議員団",rep:"石塚武",members:[{name:"石塚武",role:"代表"},{name:"高橋照代"},{name:"中里武"},{name:"明野康剛"}]},
+{name:"まえばし市民クラブ",rep:"角田修一",members:[{name:"角田修一",role:"代表"},{name:"三森和也"},{name:"大澤智之"}]},
+{name:"前橋豊輪",rep:"山田秀明",members:[{name:"山田秀明",role:"代表"},{name:"間仁田諭"},{name:"吉田博昭"}]},
+{name:"七星",rep:"中林章",members:[{name:"中林章",role:"代表"}]},
+{name:"なないろ",rep:"入澤繭子",members:[{name:"入澤繭子",role:"代表"}]},
+{name:"無所属の会",rep:"宮崎裕紀子",members:[{name:"宮崎裕紀子",role:"代表"}]},
+{name:"暁鐘",rep:"岸川知己",members:[{name:"岸川知己",role:"代表"}]},
+{name:"無所属クラブ",rep:"阿久澤萌",members:[{name:"阿久澤萌",role:"代表"}]}
+];
+
+var GLOSSARY=[
+{term:"議案",furi:"ぎあん",def:"議会で話し合い、決めるために出される案のこと。"},
+{term:"総括質問",furi:"そうかつしつもん",def:"前橋市議会で、議員が上程中の議案や市政全般について問う場面。他の市でいう一般質問にあたります。"},
+{term:"意見書",furi:"いけんしょ",def:"議会から国や県などへ意見や要望を伝える文書。"},
+{term:"原案可決",furi:"げんあんかけつ",def:"出された案を、直さずそのまま「よい」と決めること。"},
+{term:"認定",furi:"にんてい",def:"決算（1年間のお金の結果）を議会が正式に認めること。"},
+{term:"承認",furi:"しょうにん",def:"市長が先に決めたこと（専決処分）などを、議会が後から「よい」と認めること。"},
+{term:"決算",furi:"けっさん",def:"1年間に使ったお金の結果報告のこと。"},
+{term:"補正予算",furi:"ほせいよさん",def:"年度の途中で、お金の使い道を足したり減らしたりする予算の組み替え。"},
+{term:"予算",furi:"よさん",def:"1年間に市が集めるお金と使うお金の計画。議会の議決で決まります。"},
+{term:"一般会計",furi:"いっぱんかいけい",def:"福祉や教育、道路など、市の基本的な仕事に使う大きなお財布。"},
+{term:"特別会計",furi:"とくべつかいけい",def:"国民健康保険や介護保険など、目的ごとに分けたお財布。"},
+{term:"企業会計",furi:"きぎょうかいけい",def:"水道・下水道のように、料金収入で運営する事業用のお財布。"},
+{term:"条例",furi:"じょうれい",def:"市の中で効力を持つルール（市の法律のようなもの）。"},
+{term:"基金",furi:"ききん",def:"将来の大きな支出に備えて積み立てる市の貯金。"},
+{term:"債務負担行為",furi:"さいむふたんこうい",def:"工事など複数年にわたる支払いを、あらかじめ約束すること。議会の議決が必要です。"},
+{term:"専決処分",furi:"せんけつしょぶん",def:"急ぎの場合に、市長が議会の代わりに先に決めること。あとで議会の承認が必要です。"},
+{term:"工事請負契約",furi:"こうじうけおいけいやく",def:"工事を建設会社などに任せる契約。大きな工事では議会の承認が必要です。"},
+{term:"同意",furi:"どうい",def:"人事の案などに、議会が「よい」と認めること。"},
+{term:"報告",furi:"ほうこく",def:"市長が先に決めたことなどを議会に知らせるもの。承認が必要な場合もあります。"},
+{term:"会派",furi:"かいは",def:"議会の中で、考え方の近い議員同士が作るグループ。"},
+{term:"人権擁護委員",furi:"じんけんようごいいん",def:"人権に関する相談にのり、人権を守る活動をする委員。"},
+{term:"国スポ・全スポ",furi:"こくすぽ・ぜんすぽ",def:"国民スポーツ大会と全国障害者スポーツ大会。2029年に群馬県で「湯けむり国スポ・全スポぐんま2029」が開かれます。"}
+];
+var GLOSS_MAP={}; GLOSSARY.forEach(function(g){GLOSS_MAP[g.term]=g;});
+
+var CATS=["すべて","予算","条例","決算・認定","契約・財産","人事","報告","請願・意見書","その他"];
+var curSess="s3", curCat="すべて", curQ="";
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function billById(id){for(var i=0;i<ALL_BILLS.length;i++)if(ALL_BILLS[i].id===id)return ALL_BILLS[i];return null;}
+function sess(){return SESSIONS[curSess];}
+
+function renderTabs(){
+  var h="";
+  SESS_ORDER.forEach(function(k){h+='<button class="sess-tab'+(k===curSess?" active":"")+'" data-sess="'+k+'" role="tab">'+SESSIONS[k].tab+'</button>';});
+  document.getElementById("sessTabs").innerHTML=h;
+}
+function renderSessHead(){
+  var s=sess();
+  document.getElementById("sessTitle").textContent=s.title;
+  document.getElementById("sessMeta").textContent=s.meta;
+  var h="";
+  s.stats.forEach(function(st){h+='<div class="stat"><b>'+st[0]+'</b><span>'+st[1]+'</span></div>';});
+  document.getElementById("stats").innerHTML=h;
+}
+function renderFeatured(){
+  var h="";
+  sess().featured.forEach(function(f){var b=billById(f.bill);h+='<button class="feat-card" data-open="'+b.id+'"><span class="tag">'+f.tag+'</span><h3>'+f.title+'</h3><p>'+f.desc+'</p><div class="meta">'+b.num+' ・ '+b.result+'</div></button>';});
+  document.getElementById("featScroll").innerHTML=h;
+}
+function renderChips(){
+  var present={};sess().bills.forEach(function(b){present[b.cat]=true;});
+  var h="";CATS.forEach(function(c){if(c!=="すべて"&&!present[c])return;h+='<button class="chip-btn'+(c===curCat?" active":"")+'" data-cat="'+c+'">'+c+'</button>';});
+  document.getElementById("chips").innerHTML=h;
+}
+function renderBills(){
+  var list=sess().bills.filter(function(b){
+    var okCat=(curCat==="すべて"||b.cat===curCat);
+    var hay=(b.num+" "+b.easy+" "+b.official+" "+b.cat);
+    var okQ=(!curQ||hay.indexOf(curQ)>=0);
+    return okCat&&okQ;
+  });
+  var h="";
+  list.forEach(function(b){
+    var rc=b.result==="否決"?"ng":(b.split?"split":"ok");
+    var label=(b.split&&b.result!=="否決")?b.resultShort+"（賛否あり）":b.resultShort;
+    var hasFocus=focusForBill(b).length>0;
+    h+='<button class="bill" data-open="'+b.id+'"><span class="bill-top"><span class="num">'+b.num+'</span><span class="cat">'+b.catLabel+'</span><span class="result '+rc+'">'+label+'</span></span><br><h3>'+esc(b.easy)+'</h3> <span class="official">'+esc(b.official)+'</span>'
+      +'<span class="drill-row">'+(hasFocus?'<span class="giji-badge">🗣 議事あり</span>':"")+'<span class="drill-hint">掘り下げて見る ›</span></span></button>';
+  });
+  document.getElementById("billList").innerHTML=h;
+  document.getElementById("count").textContent=list.length+"件を表示";
+  document.getElementById("empty").style.display=list.length?"none":"block";
+  bindOpen();
+}
+function renderQuestions(showAll){
+  var qs=sess().questions;
+  var h="";
+  qs.forEach(function(q,i){
+    if(!showAll&&i>=8)return;
+    var topics="";q.topics.forEach(function(t){topics+="<li>"+esc(t)+"</li>";});
+    var fac=q.faction?'<span class="faction">'+q.faction+'</span>':"";
+    h+='<div class="q-card"><span class="order">'+(i+1)+'番</span><b class="name">'+q.name+'</b>'+fac+'<ol>'+topics+'</ol></div>';
+  });
+  document.getElementById("qGrid").innerHTML=h;
+  var more=document.getElementById("qMore");
+  more.textContent="残りの議員も見る（"+(qs.length-8)+"人）";
+  more.style.display=showAll?"none":"block";
+  document.getElementById("qDesc").textContent=sess().qDesc;
+  document.getElementById("qSrc").innerHTML=sess().qSrc;
+}
+function renderDebate(){
+  var d=DEBATE[curSess];if(!d){document.getElementById("debateBox").innerHTML="";return;}
+  var h='<ol class="flow">';
+  d.flow.forEach(function(f){h+='<li><span class="fd">'+f[0]+'</span><span class="ft"><b>'+f[1]+'</b>'+f[2]+'</span></li>';});
+  h+='</ol>';
+  d.focus.forEach(function(f){
+    var fb=billForFocus(curSess,f);
+    h+='<div class="focus-card"><span class="kind '+f.cls+'">'+f.kind+'</span><h3>'+f.title+'</h3>'
+      +'<div class="qa"><div class="ask"><span class="who">'+f.askWho+'</span><p>'+f.ask+'</p></div>'
+      +'<div class="ans"><span class="who">'+f.ansWho+'</span><p>'+f.ans+'</p></div></div>'
+      +'<div class="fresult">'+f.result+'</div>'
+      +'<a class="src-link" href="'+f.src+'" target="_blank" rel="noopener">'+f.srcLabel+'</a>'
+      +(fb?'<br><button class="focus-jump" data-open="'+fb.id+'">'+fb.num+'を掘り下げる ›</button>':"")
+      +'</div>';
+  });
+  var c=d.committee;
+  h+='<div class="committee-box"><h3>'+c.title+'</h3>';
+  if(c.rows){
+    h+='<table>';
+    c.rows.forEach(function(r){h+='<tr><th>'+r[0]+'<br>'+r[1]+'</th><td>'+r[2]+'</td></tr>';});
+    h+='</table>';
+  }
+  if(c.body)h+='<p>'+c.body+'</p>';
+  if(c.note)h+='<p>'+c.note+'</p>';
+  h+='</div>';
+  document.getElementById("debateBox").innerHTML=h;
+}
+function renderSession(){
+  renderTabs();renderSessHead();renderFeatured();renderDebate();renderChips();renderBills();renderQuestions(false);bindOpen();
+}
+function renderMembers(){
+  var h="";
+  FACTIONS.forEach(function(f){
+    h+='<div class="faction"><h3>'+f.name+'<span>'+f.members.length+'人</span></h3><div class="m-grid">';
+    f.members.forEach(function(m){
+      var role=m.role?'<span class="role '+((m.role==="議長"||m.role==="副議長")?"gold":"light")+'">'+m.role+'</span>':"";
+      var qc=QCOUNT[m.name]||0;
+      var q=qc?'<div class="q">🎤 総括質問 '+qc+'テーマ</div>':"";
+      h+='<div class="member"><b>'+m.name+'</b>'+role+q+'</div>';
+    });
+    h+="</div></div>";
+  });
+  document.getElementById("memberList").innerHTML=h;
+}
+function renderGlossary(){
+  var h="";
+  GLOSSARY.forEach(function(g){h+='<div class="g-card"><ruby>'+g.term+'<rt>'+g.furi+'</rt></ruby><p>'+g.def+'</p></div>';});
+  document.getElementById("gGrid").innerHTML=h;
+}
+
+var curBill=null, curTab="easy", drillStack=[];
+function setBillHash(id){
+  try{
+    if(id){history.replaceState(null,"","#"+id);}
+    else{history.replaceState(null,"",location.pathname+location.search);}
+  }catch(e){}
+}
+function openModal(id){openDrill(id,false);}
+function openDrill(id,fromRel){
+  var b=billById(id);if(!b)return;
+  var key=billSessKey(b);
+  if(key!==curSess){curSess=key;curCat="すべて";curQ="";var si=document.getElementById("search");if(si)si.value="";renderSession();}
+  if(!fromRel||!drillStack.length||drillStack[drillStack.length-1]!==id){drillStack.push(id);}
+  curBill=b;curTab="easy";drawDrill();
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+  setBillHash(id);
+  var m=document.querySelector(".modal");if(m)m.scrollTop=0;
+}
+function drillBack(){
+  if(drillStack.length>1){
+    drillStack.pop();
+    curBill=billById(drillStack[drillStack.length-1]);curTab="easy";drawDrill();setBillHash(curBill.id);
+    var m=document.querySelector(".modal");if(m)m.scrollTop=0;
+  }else{closeModal();}
+}
+function drawModal(){drawDrill();}
+function drawDrill(){
+  var b=curBill;if(!b)return;
+  var key=billSessKey(b), s=SESSIONS[key];
+  var bodyText=curTab==="easy"?b.easyText:b.officialText;
+  var voteHtml="";
+  if(b.vote){
+    var vn=b.voteNote?b.voteNote:("この議案は賛否が分かれました（賛成多数で"+b.result+"）。");
+    voteHtml='<div class="vote-box"><strong>賛否について：</strong>'+vn+'<br>※ 議長・近藤登議員は議決に加わりません。賛否の内訳は<a href="'+s.voteSrc+'" target="_blank" rel="noopener">'+s.voteLabel+'</a>で確認できます。</div>';
+  } else if(b.cat!=="請願・意見書"){
+    voteHtml='<div class="vote-box"><strong>賛否について：</strong>全会一致で'+b.result+'となりました。※ 議長・近藤登議員は議決に加わりません。</div>';
+  }
+  var glossHtml="";(b.gloss||[]).forEach(function(t){var g=GLOSS_MAP[t];if(g)glossHtml+='<div style="margin-top:6px"><span style="background:var(--chip);color:var(--chip-ink);font-size:12px;padding:4px 10px;border-radius:999px;font-weight:700">'+g.term+'</span> <span style="font-size:13px">'+g.def+'</span></div>';});
+  var srcLabel=b.srcLabel?b.srcLabel:(b.id==="op24"||b.id==="op25"?"出典：意見書（前橋市公式PDF）→":(b.id==="g117"||b.id==="g118"||b.id==="g119"||b.id==="g120")?"出典：9月補正予算説明資料（前橋市公式PDF）→":(b.src===SRC_GEPPOU3?"出典：議会月報 令和8年3月号（前橋市公式PDF）→":(b.src===SRC_GEPPOU6?"出典：議会月報 令和8年6月号（前橋市公式PDF）→":"出典：議案の議決結果（前橋市公式PDF）→")));
+  var srcHtml='<a class="src-link" href="'+b.src+'" target="_blank" rel="noopener">'+srcLabel+'</a>';
+  if(b.id==="g117"||b.id==="g124")srcHtml+='<br><a class="src-link" href="'+SRC_DAYORI+'" target="_blank" rel="noopener">あわせて読む：まえばし市議会だより第178号（公式PDF）→</a>';
+  if(b.id==="a15")srcHtml+='<br><a class="src-link" href="'+SRC_GEPPOU3+'" target="_blank" rel="noopener">議事・表決の記録：議会月報 令和8年3月号（公式PDF）→</a>';
+  /* ステッパー：提案 → 質問・審査 → 討論 → 表決 */
+  var step2desc=key==="s2"?"この会期は委員会への付託が省略され、本会議の総括質問でただされました。":(key==="s1"?"代表質問・総括質問の後、4つの常任委員会に付託して審査されました。":"総括質問の後、所管の常任委員会に付託して審査されました。");
+  var stepper='<div class="stepper">'
+    +'<div class="step"><div class="dot">1</div><div class="sd">'+b.propose+'</div><div class="st">提案</div><div class="sx">議案が上程され、提案理由が説明されました。</div></div>'
+    +'<div class="step"><div class="dot">2</div><div class="sd">会期中</div><div class="st">質問・委員会審査</div><div class="sx">'+step2desc+'</div></div>'
+    +'<div class="step"><div class="dot">3</div><div class="sd">最終日</div><div class="st">討論</div><div class="sx">'+(b.split?"賛否が分かれた議案で、討論が行われました。":"委員長報告を経て、表決へ進みました。")+'</div></div>'
+    +'<div class="step"><div class="dot">4</div><div class="sd">'+b.decide+'</div><div class="st">表決：'+b.result+'</div><div class="sx">'+(b.split?"賛否が分かれたうえでの結果です。":"全会一致での結果です。")+'</div></div>'
+    +'</div>';
+  /* 会期全体の流れ */
+  var d=DEBATE[key], flowHtml="";
+  if(d&&d.flow){
+    flowHtml='<ul class="mini-flow">';
+    d.flow.forEach(function(f){flowHtml+='<li><span class="fd">'+f[0]+'</span><span><b>'+f[1]+'</b> ― '+f[2]+'</span></li>';});
+    flowHtml+='</ul>';
+  }
+  /* この議案に関わる質疑・討論 */
+  var focuses=focusForBill(b), focusHtml="";
+  if(focuses.length){
+    focuses.forEach(function(f){
+      focusHtml+='<div class="focus-card"><span class="kind '+f.cls+'">'+f.kind+'</span><h3>'+f.title+'</h3>'
+        +'<div class="qa"><div class="ask"><span class="who">'+f.askWho+'</span><p>'+f.ask+'</p></div>'
+        +'<div class="ans"><span class="who">'+f.ansWho+'</span><p>'+f.ans+'</p></div></div>'
+        +'<div class="fresult">'+f.result+'</div>'
+        +'<a class="src-link" href="'+f.src+'" target="_blank" rel="noopener">'+f.srcLabel+'</a></div>';
+    });
+  }else{
+    focusHtml='<p style="font-size:13.5px;color:var(--ink2);margin:0">この議案に直接ひも付く質疑・討論は、「議事で読む」には個別のカードとしては載っていません。審査の経過は上の会期の流れと、出典の公式資料で確認できます。</p>';
+  }
+  /* 関連議案 */
+  var rels=relatedBills(b), relHtml="";
+  if(rels.length){
+    relHtml='<div class="rel-list">';
+    rels.forEach(function(rb){
+      var tag=(rb.id==="g124"&&b.id==="a43")?"9月定例会の見直し案":(rb.id==="a43"&&b.id==="g124")?"3月定例会で否決された元の案":(rb.id==="g133"&&b.id==="b70")?"9月定例会での契約変更":(rb.id==="b70"&&b.id==="g133")?"6月定例会の元の契約":(SESSIONS[billSessKey(rb)].tab+"・"+rb.cat);
+      relHtml+='<button class="rel-item" data-rel="'+rb.id+'"><span><span class="num">'+rb.num+'</span> <span class="rs">'+tag+'</span><br><span class="rt">'+esc(rb.easy)+'</span></span><span class="go">'+rb.resultShort+' ›</span></button>';
+    });
+    relHtml+='</div>';
+  }
+  /* 前後ナビ */
+  var list=sessBillsOf(b), idx=-1;
+  list.forEach(function(x,i){if(x.id===b.id)idx=i;});
+  var prevB=idx>0?list[idx-1]:null, nextB=(idx>=0&&idx<list.length-1)?list[idx+1]:null;
+  var backLabel=drillStack.length>1?"‹ 前に見た議案に戻る":"‹ 議案一覧に戻る";
+  document.getElementById("modalBody").innerHTML=
+    '<div class="crumb">'+s.title+' › '+b.cat+' › <b>'+b.num+'</b></div>'
+    +'<div class="drill-nav"><button class="back-btn" id="drillBackBtn">'+backLabel+'</button></div>'
+    +'<span class="num">'+b.num+'</span> <span class="cat">'+b.catLabel+'</span>'
+    +'<h3 style="margin:10px 0 4px;font-size:19px;line-height:1.45">'+esc(b.easy)+'</h3>'
+    +'<div style="color:var(--ink2);font-size:13px">'+esc(b.official)+'</div>'
+    +stepper
+    +'<div class="tabs"><button class="tab'+(curTab==="easy"?" active":"")+'" id="tabEasy">やさしい説明</button><button class="tab'+(curTab==="official"?" active":"")+'" id="tabOff">公式の説明</button></div>'
+    +'<p style="font-size:14.5px;margin:6px 0">'+esc(bodyText)+'</p>'
+    +voteHtml
+    +'<table class="info"><tr><th>結果</th><td>'+b.result+(b.split?"（賛否が分かれました）":"")+'</td></tr><tr><th>提出日</th><td>'+b.propose+'</td></tr><tr><th>議決日</th><td>'+b.decide+'</td></tr></table>'
+    +(flowHtml?'<div class="drill-sec"><h4>🗓 この会期の議事の流れ</h4>'+flowHtml+'</div>':"")
+    +'<div class="drill-sec"><h4>🗣 この議案に関わる質疑・討論</h4>'+focusHtml+'</div>'
+    +(relHtml?'<div class="drill-sec"><h4>🔗 関連する議案（さらに掘り下げる）</h4>'+relHtml+'</div>':"")
+    +(glossHtml?'<div class="drill-sec"><h4>📖 関係することば解説</h4>'+glossHtml+'</div>':"")
+    +'<div class="drill-sec"><h4>出典</h4>'+srcHtml+'</div>'
+    +'<div class="pn-row"><button class="pn-btn" id="pnPrev"'+(prevB?"":" disabled")+'>‹ 前の議案'+(prevB?"（"+prevB.num+"）":"")+'</button><button class="pn-btn" id="pnNext"'+(nextB?"":" disabled")+'>次の議案'+(nextB?"（"+nextB.num+"）":"")+' ›</button></div>';
+  document.getElementById("tabEasy").onclick=function(){curTab="easy";drawDrill();};
+  document.getElementById("tabOff").onclick=function(){curTab="official";drawDrill();};
+  document.getElementById("drillBackBtn").onclick=drillBack;
+  var relEls=document.querySelectorAll("[data-rel]");
+  for(var i=0;i<relEls.length;i++){relEls[i].onclick=function(){openDrill(this.getAttribute("data-rel"),true);};}
+  if(prevB)document.getElementById("pnPrev").onclick=function(){drillStack.push(prevB.id);curBill=prevB;curTab="easy";drawDrill();setBillHash(prevB.id);var m=document.querySelector(".modal");if(m)m.scrollTop=0;};
+  if(nextB)document.getElementById("pnNext").onclick=function(){drillStack.push(nextB.id);curBill=nextB;curTab="easy";drawDrill();setBillHash(nextB.id);var m=document.querySelector(".modal");if(m)m.scrollTop=0;};
+}
+function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";drillStack=[];curBill=null;setBillHash(null);}
+function bindOpen(){
+  var els=document.querySelectorAll("[data-open]");
+  for(var i=0;i<els.length;i++){els[i].onclick=function(){drillStack=[];openModal(this.getAttribute("data-open")); };}
+}
+
+renderSession();renderMembers();renderGlossary();
+/* URL末尾の #議案ID（例 #g124）で、その議案のドリルダウンを直接開く */
+function billFromHash(){
+  var h="";try{h=decodeURIComponent(location.hash.replace(/^#/,""));}catch(e){h=location.hash.replace(/^#/,"");}
+  if(!h)return null;
+  var b=billById(h);if(b)return b;
+  for(var i=0;i<ALL_BILLS.length;i++){if(ALL_BILLS[i].num===h)return ALL_BILLS[i];}
+  return null;
+}
+(function(){var b=billFromHash();if(b){drillStack=[];openDrill(b.id,false);}})();
+window.addEventListener("hashchange",function(){
+  var b=billFromHash();
+  if(!b){if(document.getElementById("overlay").classList.contains("open")){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";drillStack=[];curBill=null;}}
+  else if(!curBill||curBill.id!==b.id){drillStack=[];openDrill(b.id,false);}
+});
+document.getElementById("sessTabs").addEventListener("click",function(e){var k=e.target.getAttribute("data-sess");if(k&&k!==curSess){curSess=k;curCat="すべて";curQ="";document.getElementById("search").value="";renderSession();}});
+document.getElementById("chips").addEventListener("click",function(e){if(e.target.getAttribute("data-cat")){curCat=e.target.getAttribute("data-cat");renderChips();renderBills();}});
+document.getElementById("search").addEventListener("input",function(e){curQ=e.target.value.trim();renderBills();});
+document.getElementById("qMore").onclick=function(){renderQuestions(true);};
+document.getElementById("closeBtn").onclick=closeModal;
+document.getElementById("overlay").addEventListener("click",function(e){if(e.target===this)closeModal();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
+</script>
+</body>
+</html>
